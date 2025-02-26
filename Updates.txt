@@ -1,0 +1,7 @@
+#This notepad serves as a catalog of what is update or added in this pull request
+
+1. Renamed index.js to server.js to avoid confusion with index.ejs.
+2. Added auth.js for basic routing between sign-in and sign-out, located in the routes folder.
+3. Updated server.js to support routing between sign-in and sign-out.
+4. Added sign-in and sign-out pages. (To demo the sign-up page, visit http://localhost:3000/signup)
+5. Made the sidebar togglable on the sign-in and sign-out pages.
