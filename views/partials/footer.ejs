@@ -12,6 +12,32 @@
       });
     });
   </script>
+
+  <!--To-Do list functionality-->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const labels = document.querySelectorAll(".editable-label");
+  
+      labels.forEach(label => {
+        label.addEventListener("click", function () {
+          this.setAttribute("contenteditable", "true");
+          this.focus();
+        });
+  
+        label.addEventListener("blur", function () {
+          this.setAttribute("contenteditable", "false");
+        });
+  
+        label.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            this.blur();
+          }
+        });
+      });
+    });
+  </script>
+  
   </body>
   </html>
   

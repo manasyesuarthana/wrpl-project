@@ -12,4 +12,12 @@ router.get("/signin", (req, res) => {
   res.render("forms/signin.ejs");
 });
 
+router.get("/open-job-form", (req, res) => {
+  res.render("forms/job-info-form.ejs");
+});
+
+router.get("/contact-page", (req, res) => {
+  res.render("forms/contact-form.ejs");
+});
+
 export default router;
