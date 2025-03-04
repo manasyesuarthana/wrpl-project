@@ -3,13 +3,13 @@ import express from "express";
 const router = express.Router();
 
 // Route for signup page
-router.get("/signup", (req, res) => {
-  res.render("forms/signup.ejs");
+router.get("/register", (req, res) => {
+  res.render("forms/register.ejs");
 });
 
 // Route for signin page
-router.get("/signin", (req, res) => {
-  res.render("forms/signin.ejs");
+router.get("/login", (req, res) => {
+  res.render("forms/login.ejs");
 });
 
 router.get("/open-job-form", (req, res) => {
