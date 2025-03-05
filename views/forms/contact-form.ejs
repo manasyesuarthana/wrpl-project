@@ -1,5 +1,10 @@
 <%- include("../partials/header.ejs") %>
-<div class="container">
+<div class="container pt-3">
+    <!-- Back Button -->
+    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-3">
+      ← Back
+    </a>
+
     <main>
       <div class="py-5 text-center">
         <h2>Add Important Contacts Here</h2>
@@ -42,7 +47,7 @@
               </div>    
               
               <div class="col-12">
-                <label for="contactEmail" class="form-label">Phone Number</label>
+                <label for="contactEmail" class="form-label">Email</label>
                 <div class="input-group has-validation">
                   <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="johndoe@mail.com" required>
                   <div class="invalid-feedback">
@@ -62,3 +67,6 @@
         </div>
       </div>
     </main>
+</div>
+
+<%- include("../partials/footer.ejs") %>

@@ -1,6 +1,6 @@
 <%- include("partials/header.ejs") %>
-
-<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px;">
+<div class="d-flex flex-row">
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
       <span class="fs-4">Sidebar</span>
@@ -47,7 +47,48 @@
       </ul>
     </div>
   </div>
-<!--START CODING HERE-->
+  
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="text-white">Contacts</h2>
+      <a href="/contact-page" class="btn btn-primary">Add Contact</a>
+    </div>
+    <div class="row mt-3" id="contacts-container">
+      <!-- Cards will be inserted here -->
+    </div>
+  </div>
+</div>
+<!-- TEMPORARY PLACEHOLDER DATA -->
+<script>
+  const exampleContacts = [
+      { name: "John Doe", company: "Acme Corp", role: "Manager", phone: "123-456-7890", email: "john.doe@example.com", linkedin: "https://linkedin.com/in/johndoe" },
+      { name: "Jane Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" }
+  ];
 
-<!--FINISH CODING HERE-->
+  function loadExampleData() {
+      const container = document.getElementById("contacts-container");
+      exampleContacts.forEach(contact => {
+          const card = `
+              <div class="col-md-4 mb-3">
+                <div class="card bg-dark text-white border-light">
+                  <div class="card-body">
+                    <h5 class="card-title">${contact.name}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${contact.company} - ${contact.role}</h6>
+                    <p class="card-text">
+                      <strong>Phone:</strong> ${contact.phone}<br>
+                      <strong>Email:</strong> <a href="mailto:${contact.email}" class="text-white">${contact.email}</a>
+                    </p>
+                    <a href="${contact.linkedin}" target="_blank" class="btn btn-primary">LinkedIn</a>
+                  </div>
+                </div>
+              </div>
+          `;
+          container.innerHTML += card;
+      });
+  }
+
+  document.addEventListener("DOMContentLoaded", loadExampleData);
+</script>
+<!-- TEMPORARY PLACEHOLDER DATA -->
+
 <%- include("partials/footer.ejs") %>
