@@ -7,13 +7,13 @@
 
     <main>
       <div class="py-5 text-center">
-        <h2>Add Important Contacts Here</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+        <h2>Add Important Contacts</h2>
+        <p class="lead">Fill out the form below to save important contacts related to your job applications.</p>
       </div>
   
       <div class="container">
         <div class="col-12">
-          <h4 class="mb-3">Job Details</h4>
+          <h4 class="mb-3">Contact Information</h4>
           <form class="needs-validation" novalidate="" action="/submit-contacts" method="POST">
             <div class="row g-3">
               <div class="col-12">
@@ -26,6 +26,16 @@
                 </div>
               </div>
   
+              <div class="col-12">
+                <label for="companyName" class="form-label">Company</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="companyName" name="companyName" placeholder="e.g., Example Inc." required>
+                  <div class="invalid-feedback">
+                    Company name is required.
+                  </div>
+                </div>
+              </div>
+
               <div class="col-12">
                 <label for="roleInCompany" class="form-label">Role in the Company</label>
                 <div class="input-group has-validation">
