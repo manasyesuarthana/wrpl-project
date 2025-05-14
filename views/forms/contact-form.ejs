@@ -7,25 +7,35 @@
 
     <main>
       <div class="py-5 text-center">
-        <h2>Add Important Contacts Here</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+        <h2>Add Important Contacts</h2>
+        <p class="lead">Fill out the form below to save important contacts related to your job applications.</p>
       </div>
   
       <div class="container">
         <div class="col-12">
-          <h4 class="mb-3">Job Details</h4>
+          <h4 class="mb-3">Contact Information</h4>
           <form class="needs-validation" novalidate="" action="/submit-contacts" method="POST">
             <div class="row g-3">
               <div class="col-12">
                 <label for="contactName" class="form-label">Contact Name</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control" id="contactName" name="contactName" placeholder="John Doe" required>
+                  <input type="text" class="form-control" id="contactName" name="contactName" placeholder="e.g., John Doe" required>
                 <div class="invalid-feedback">
                     Contact name is required.
                   </div>
                 </div>
               </div>
   
+              <div class="col-12">
+                <label for="companyName" class="form-label">Company</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="companyName" name="companyName" placeholder="e.g., Example Inc." required>
+                  <div class="invalid-feedback">
+                    Company name is required.
+                  </div>
+                </div>
+              </div>
+
               <div class="col-12">
                 <label for="roleInCompany" class="form-label">Role in the Company</label>
                 <div class="input-group has-validation">
@@ -39,7 +49,7 @@
               <div class="col-12">
                 <label for="phoneNumber" class="form-label">Phone Number</label>
                 <div class="input-group has-validation">
-                  <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="+1 234 567" required>
+                  <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="e.g., +1 234 567" required>
                   <div class="invalid-feedback">
                     Phone number is required.
                   </div>
@@ -49,7 +59,7 @@
               <div class="col-12">
                 <label for="contactEmail" class="form-label">Email</label>
                 <div class="input-group has-validation">
-                  <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="johndoe@mail.com" required>
+                  <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="e.g., johndoe@mail.com" required>
                   <div class="invalid-feedback">
                     Email is required.
                   </div>
