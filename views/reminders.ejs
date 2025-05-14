@@ -1,53 +1,76 @@
 <%- include("partials/header.ejs") %>
-
-<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px; position: sticky; top: 0; height: 100vh; overflow-y: auto;">
+<div class="d-flex justify-content-start">
+  <!--SIDEBAR-->
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px; position: sticky; top: 0; height: 100vh; overflow-y: auto;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
       <span class="fs-4">Sidebar</span>
     </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="/" class="nav-link text-white" aria-current="page">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="/reminders" class="nav-link active">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-          Reminders
-        </a>
-      </li>
-      <li>
-        <a href="/contacts" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          Contacts
-        </a>
-      </li>
-      <li>
-        <a href="/documents" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-          Documents
-        </a>
-      </li>
-    </ul>
-    <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a href="/" class="nav-link text-white" aria-current="page">
+        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+        Home
       </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+    </li>
+    <li>
+      <a href="/reminders" class="nav-link active">
+        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+        Reminders
+      </a>
+    </li>
+    <li>
+      <a href="/contacts" class="nav-link text-white">
+        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+        Contacts
+      </a>
+    </li>
+    <li>
+      <a href="/documents" class="nav-link text-white">
+        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+        Documents
+      </a>
+    </li>
+  </ul>
+  <hr>
+  <div class="dropdown">
+    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+      <strong>mdo</strong>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+      <li><a class="dropdown-item" href="#">New project...</a></li>
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+
+<!--REMINDER--> 
+  <div class="card flex-grow min-vh-100 vw-100 overflow-auto"> <!-- style="border-radius: 15px;" -->
+    <div class="card-body p-5">
+      <h6 class="mb-3">Reminders List</h6>
+      <form class="d-flex justify-content-between mb-4" action="/reminders" method="POST">
+        <div data-mdb-input-init class="form-outline flex-fill">
+          <input type="text" id="reminders" name="reminders" class="form-control form-control-lg" />
+          <label class="form-label" for="reminders">What do you need to do today?</label>
+        </div>
+        <div>
+          <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg ms-2">Add</button>
+        </div>  
+      </form>
+      <ul class="list-group mb-0">
+        
       </ul>
     </div>
   </div>
-<!--START CODING HERE-->
-  
-<!--FINISH CODING HERE-->
+</div>
+     
+
+
+
+
 <%- include("partials/footer.ejs") %>

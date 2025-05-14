@@ -46,6 +46,10 @@ app.post("/login", controller.postLogin);
 
 app.post("/register", controller.postRegister);
 
+app.post("/reminders", (req, res) => {
+  console.log(req.body);
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
