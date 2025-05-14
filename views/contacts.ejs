@@ -53,11 +53,25 @@
       <h2 class="text-white">Contacts</h2>
       <a href="/contact-page" class="btn btn-primary">Add Contact</a>
     </div>
+    
+    <!-- Search Bar -->
+    <div class="mb-4">
+      <div class="input-group">
+        <span class="input-group-text bg-dark text-white border-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </span>
+        <input type="text" id="contact-search" class="form-control bg-dark text-white border-secondary" placeholder="Search contacts..." aria-label="Search contacts">
+      </div>
+    </div>
+    
     <div class="row mt-3" id="contacts-container">
       <!-- Cards will be inserted here -->
     </div>
   </div>
 </div>
+
 <!-- TEMPORARY PLACEHOLDER DATA -->
 <script>
   const exampleContacts = [
@@ -65,20 +79,21 @@
       { name: "Jane Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
       { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
       { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
-      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" }
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Manasyes Suarthiano", company: "GedaGedi Inc.", role: "Penonton", phone: "987-654-3210", email: "manasyaos@yahoo.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" }
   ];
 
-  function loadExampleData() {
+  function renderContacts(contacts) {
       const container = document.getElementById("contacts-container");
-      exampleContacts.forEach(contact => {
+      container.innerHTML = '';
+      
+      contacts.forEach(contact => {
           const card = `
               <div class="col-md-4 mb-3">
                 <div class="card bg-dark text-white border-light">
@@ -98,7 +113,25 @@
       });
   }
 
-  document.addEventListener("DOMContentLoaded", loadExampleData);
+  function filterContacts(searchTerm) {
+      searchTerm = searchTerm.toLowerCase();
+      return exampleContacts.filter(contact => 
+          contact.name.toLowerCase().includes(searchTerm) ||
+          contact.company.toLowerCase().includes(searchTerm) ||
+          contact.role.toLowerCase().includes(searchTerm) ||
+          contact.email.toLowerCase().includes(searchTerm) ||
+          contact.phone.includes(searchTerm));
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+      renderContacts(exampleContacts);
+      
+      const searchInput = document.getElementById('contact-search');
+      searchInput.addEventListener('input', (e) => {
+          const filteredContacts = filterContacts(e.target.value);
+          renderContacts(filteredContacts);
+      });
+  });
 </script>
 <!-- TEMPORARY PLACEHOLDER DATA -->
 
