@@ -1,6 +1,8 @@
 <%- include("partials/header.ejs") %>
 
-<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px;">
+<div class="d-flex">
+
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px; position: sticky; top: 0; height: 100vh; overflow-y: auto;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
       <span class="fs-4">Sidebar</span>
@@ -8,33 +10,27 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
+        <a href="/" class="nav-link active" aria-current="page">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
           Home
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
+        <a href="/reminders" class="nav-link text-white">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-          Dashboard
+          Reminders
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
+        <a href="/contacts" class="nav-link text-white">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          Orders
+          Contacts
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
+        <a href="/documents" class="nav-link text-white">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-          Products
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Customers
+          Documents
         </a>
       </li>
     </ul>
@@ -53,7 +49,101 @@
       </ul>
     </div>
   </div>
-<!--START CODING HERE-->
+  <!--START CODING HERE-->
+  <div class="container pt-4 d-flex flex-column">
+  <div>
+    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-3">
+      ← Back
+    </a>
+  </div>
+  
+  <div class="d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="w-100" style="max-width: 720px;">
+      <h1 class="display-5 fw-bold text-center mb-4">Job Position Details</h1>
+      <div class="card shadow-sm mb-5">
+        <div class="card-header bg-primary text-white">
+          <h2 class="mb-0">Google</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>Address:</strong> Silicon Valley</p>
+              <p><strong>Date of Application:</strong> 15/5/2025</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Country:</strong> USA</p>
+              <p><strong>Website:</strong> <a href="https://www.google.com" target="_blank">www.google.com</a></p>
+            </div>
+          </div>
+          <p><strong>Status:</strong> <span class="badge bg-warning text-dark">Have not applied</span></p>
+          <p><strong>Notes:</strong> Needs CV</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
+
+</div>
+
+<script>
+  const exampleContacts = [
+      { name: "John Doe", company: "Acme Corp", role: "Manager", phone: "123-456-7890", email: "john.doe@example.com", linkedin: "https://linkedin.com/in/johndoe" },
+      { name: "Jane Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Walawe Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Manasyes Suarthiano", company: "GedaGedi Inc.", role: "Penonton", phone: "987-654-3210", email: "manasyaos@yahoo.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" },
+      { name: "Farked Smith", company: "Tech Solutions", role: "Developer", phone: "987-654-3210", email: "jane.smith@example.com", linkedin: "https://linkedin.com/in/janesmith" }
+  ];
+
+  function renderContacts(contacts) {
+      const container = document.getElementById("contacts-container");
+      container.innerHTML = '';
+      
+      contacts.forEach(contact => {
+          const card = `
+              <div class="col-md-4 mb-3">
+                <div class="card bg-dark text-white border-light">
+                  <div class="card-body">
+                    <h5 class="card-title">${contact.name}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${contact.company} - ${contact.role}</h6>
+                    <p class="card-text">
+                      <strong>Phone:</strong> ${contact.phone}<br>
+                      <strong>Email:</strong> <a href="mailto:${contact.email}" class="text-white">${contact.email}</a>
+                    </p>
+                    <a href="${contact.linkedin}" target="_blank" class="btn btn-primary">LinkedIn</a>
+                  </div>
+                </div>
+              </div>
+          `;
+          container.innerHTML += card;
+      });
+  }
+
+  function filterContacts(searchTerm) {
+      searchTerm = searchTerm.toLowerCase();
+      return exampleContacts.filter(contact => 
+          contact.name.toLowerCase().includes(searchTerm) ||
+          contact.company.toLowerCase().includes(searchTerm) ||
+          contact.role.toLowerCase().includes(searchTerm) ||
+          contact.email.toLowerCase().includes(searchTerm) ||
+          contact.phone.includes(searchTerm));
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+      renderContacts(exampleContacts);
+      
+      const searchInput = document.getElementById('contact-search');
+      searchInput.addEventListener('input', (e) => {
+          const filteredContacts = filterContacts(e.target.value);
+          renderContacts(filteredContacts);
+      });
+  });
+</script>
 <!--FINISH CODING HERE-->
 <%- include("partials/footer.ejs") %>

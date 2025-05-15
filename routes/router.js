@@ -31,4 +31,8 @@ router.get("/reminders", (req, res) => {
 router.get("/documents", (req, res) => {
   res.render("../views/documents.ejs");
 });
+
+router.get("/viewJobDetail", (req, res) => {
+  res.render("job-detail");
+});
 export default router;

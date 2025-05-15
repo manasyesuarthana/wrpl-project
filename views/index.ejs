@@ -48,9 +48,80 @@
     </div>
   </div>
 
-  <div class="container my-4">
-    <a href="/open-job-form" class="btn btn-primary w-100 btn-lg">Add Jobs</a>
+   <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="text-white">Job Applications</h2>
+      <a href="/open-job-form" class="btn btn-primary">Add Application</a>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="mb-4">
+      <div class="input-group">
+        <span class="input-group-text bg-dark text-white border-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </span>
+        <input type="text" id="application-search" class="form-control bg-dark text-white border-secondary" placeholder="Search application..." aria-label="Search contacts">
+      </div>
+    </div>
+    
+    <div class="row mt-3" id="applications-container">
+      <!-- Cards will be inserted here -->
+    </div>
   </div>
+</div>
+
+<!-- TEMPORARY PLACEHOLDER DATA -->
+<script>
+  const exampleApplications = [
+      { appliedPosition: "Google", companyName: "Data Scientist", dateApplied: "16/05/2025", status: "Have not applied"},
+      { appliedPosition: "Google", companyName: "Data Scientist", dateApplied: "16/05/2025", status: "Have not applied"}
+  ];
+
+  function renderApplications(app) {
+      const container = document.getElementById("applications-container");
+      container.innerHTML = '';
+      
+      app.forEach(app => {
+          const card = `
+              <div class="col-md-4 mb-3">
+                <div class="card bg-dark text-white border-light">
+                  <div class="card-body">
+                    <h5 class="card-title">${app.appliedPosition}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${app.companyName}</h6>
+                    <p class="card-text">
+                      <strong>Date Applied:</strong> ${app.dateApplied}<br>
+                      <strong>Status:</strong> ${app.status}
+                    </p>
+                      <a href="/viewJobDetail" class="btn btn-primary">View More</a>
+                  </div>
+                </div>
+              </div>
+          `;
+          container.innerHTML += card;
+      });
+  }
+
+  function filterApplications(searchTerm) {
+      searchTerm = searchTerm.toLowerCase();
+      return exampleApplications.filter(contact => 
+          app.appliedPosition.toLowerCase().includes(searchTerm) ||
+          app.companyName.toLowerCase().includes(searchTerm) ||
+          app.dateApplied.toLowerCase().includes(searchTerm) ||
+          app.status.toLowerCase().includes(searchTerm));
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+      renderApplications(exampleApplications);
+      
+      const searchInput = document.getElementById('application-search');
+      searchInput.addEventListener('input', (e) => {
+          const filteredApplications = filterApplications(e.target.value);
+          renderApplications(filteredApplications);
+      });
+  });
+</script>
 </div>
 
 <%- include("partials/footer.ejs") %>

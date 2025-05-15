@@ -1,5 +1,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+<style>
+  .list-group-item span {
+    display: block;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+</style>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
       const navLinks = document.querySelectorAll(".nav-link");
@@ -29,26 +37,55 @@
     const li = document.createElement('li');
     li.className = 'list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2';
 
-    li.innerHTML = `
-      <div class="d-flex align-items-center">
-        <input class="form-check-input me-2" type="checkbox" />
-        <span>${text}</span>
-      </div>
+    // li.innerHTML = `
+    //   <div class="d-flex align-items-center">
+    //     <input class="form-check-input me-2" type="checkbox" />
+    //     <span>${text}</span>
+    //   </div>
     
-      <a href="#!" data-mdb-tooltip-init title="Remove item">
-        <i class="fas fa-times text-danger">
+    //   <a href="#!" data-mdb-tooltip-init title="Remove item">
+    //     <i class="fas fa-times text-danger">
+    //       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+    //         class="bi bi-trash" viewBox="0 0 16 16">
+    //         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 
+    //                  .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 
+    //                  0v6a.5.5 0 0 0 1 0z" />
+    //         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 
+    //                  2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 
+    //                  1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 
+    //                  1h3.5a1 1 0 0 1 1 1z" />
+    //       </svg>
+    //     </i>
+    //   </a>`;
+
+    li.innerHTML = `
+    <div class="d-flex align-items-start w-100">
+      <div class="form-check me-3 pt-1">
+        <input class="form-check-input" type="checkbox" />
+      </div>
+      <div class="flex-grow-1">
+        <span style="word-break: break-word;">${text}</span>
+      </div>
+      <a href="#!" class="ms-3 mt-1 text-danger" data-mdb-tooltip-init title="Remove item">
+        <i class="fas fa-times">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-trash" viewBox="0 0 16 16">
-            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 
-                     .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 
-                     0v6a.5.5 0 0 0 1 0z" />
-            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 
-                     2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 
-                     1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 
-                     1h3.5a1 1 0 0 1 1 1z" />
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 
+                    0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 
+                    .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 
+                    .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 
+                    0 1 0z"/>
+            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 
+                    1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 
+                    1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 
+                    1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 
+                    1 1 1z"/>
           </svg>
         </i>
-      </a>`;
+      </a>
+    </div>
+  `;
+
 
     list.appendChild(li);
     

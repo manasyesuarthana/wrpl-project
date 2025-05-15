@@ -1,7 +1,16 @@
 <%- include("../partials/header.ejs") %>
 <div class="container">
+  
     <main>
       <div class="py-5 text-center">
+        <div class="d-flex">
+          <div>
+            <a href="javascript:history.back()" class="btn btn-outline-secondary mb-3">
+            ← Back
+          </a>
+        </div> 
+      </div>
+        
         <h2>Add Your Job Info Here</h2>
         <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
       </div>
@@ -188,7 +197,7 @@
             
   
               <div class="col-12">
-                <label for="companyWebsite" class="form-label">Company's Website <span>(Optional)</span></label>
+                <label for="companyWebsite" class="form-label">Company's Website OR Application Portal<span>(Optional)</span></label>
                 <input type="text" class="form-control" id="companyWebsite" name="companyWebsite" placeholder="www.company.com">
               </div>
             
