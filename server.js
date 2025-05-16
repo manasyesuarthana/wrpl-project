@@ -48,6 +48,10 @@ app.post("/reminders", (req, res) => {
   console.log(req.body);
 });
 
+app.post("/logout", (req, res) => {
+  //logout logic from the backend
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
