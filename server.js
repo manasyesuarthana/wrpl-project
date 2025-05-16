@@ -44,8 +44,8 @@ app.post("/login", controller.postLogin);
 
 app.post("/register", controller.postRegister);
 
-app.post("/reminders", (req, res) => {
-  console.log(req.body);
+app.post("/logout", (req, res) => {
+  //logout logic from the backend
 });
 
 app.listen(port, () => {
