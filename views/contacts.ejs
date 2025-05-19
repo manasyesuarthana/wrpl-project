@@ -104,7 +104,13 @@
                       <strong>Phone:</strong> ${contact.phone}<br>
                       <strong>Email:</strong> <a href="mailto:${contact.email}" class="text-white">${contact.email}</a>
                     </p>
-                    <a href="${contact.linkedin}" target="_blank" class="btn btn-primary">LinkedIn</a>
+                    <div class="d-flex justify-content-between">
+                      <a href="${contact.linkedin}" target="_blank" class="btn btn-primary">LinkedIn</a>
+                      <div>
+                        <a href="/editContact" class="btn btn-success">Edit</a>
+                        <a href="/deleteContact" class="btn btn-danger">Delete</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

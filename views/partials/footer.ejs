@@ -37,27 +37,6 @@
     const li = document.createElement('li');
     li.className = 'list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2';
 
-    // li.innerHTML = `
-    //   <div class="d-flex align-items-center">
-    //     <input class="form-check-input me-2" type="checkbox" />
-    //     <span>${text}</span>
-    //   </div>
-    
-    //   <a href="#!" data-mdb-tooltip-init title="Remove item">
-    //     <i class="fas fa-times text-danger">
-    //       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-    //         class="bi bi-trash" viewBox="0 0 16 16">
-    //         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 
-    //                  .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 
-    //                  0v6a.5.5 0 0 0 1 0z" />
-    //         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 
-    //                  2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 
-    //                  1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 
-    //                  1h3.5a1 1 0 0 1 1 1z" />
-    //       </svg>
-    //     </i>
-    //   </a>`;
-
     li.innerHTML = `
     <div class="d-flex align-items-start w-100">
       <div class="form-check me-3 pt-1">
@@ -120,22 +99,17 @@
       const li = e.target.closest('li');
       if (li) li.remove();
     }
-
     // Checkbox clicked
     if (e.target.matches('input[type="checkbox"]')) {
-      const label = e.target.nextElementSibling;
-      if (label) {
-        if (e.target.checked) {
-          const s = document.createElement('s');
-          s.textContent = label.textContent;
-          label.replaceWith(s);
-        } else {
-          const span = document.createElement('span');
-          span.textContent = label.textContent;
-          label.replaceWith(span);
-        }
+      const li = e.target.closest('li');
+      const textSpan = li.querySelector('.flex-grow-1 span');
+
+      if (textSpan) {
+        textSpan.classList.toggle('strikethrough', e.target.checked);
       }
     }
+
+
   });
 });
 </script>

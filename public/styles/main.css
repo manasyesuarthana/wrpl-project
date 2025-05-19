@@ -17,3 +17,7 @@ body {
     outline: none; /* Remove default focus outline */
   }
   
+.strikethrough {
+  text-decoration: line-through;
+  word-break: break-word;
+}
