@@ -1,7 +1,7 @@
-import { Repository } from './repository.js';
+import { Repository } from '../api/repository/repository.js';
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
-import { jobsTable, recruiterContactsTable, usersTable } from '../../db/schema.js';
+import { jobsTable, recruiterContactsTable, usersTable } from '../db/schema.js';
 import { jest } from '@jest/globals';
 import { eq } from 'drizzle-orm';
 let sql_uri = "postgresql://wrpl-dev_owner:npg_P9vIZq4VoBFR@ep-ancient-flower-a8f4kayu-pooler.eastus2.azure.neon.tech/wrpl-dev?sslmode=require";
