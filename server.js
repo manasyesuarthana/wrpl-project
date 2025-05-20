@@ -52,6 +52,18 @@ app.post("/logout", (req, res) => {
   //logout logic from the backend
 });
 
+app.delete("/deleteContact", (req, res) =>{
+  //delete contact logic from the backend
+});
+
+app.delete("/deleteJob", (req, res) => {
+  //delete job logic from the backend
+});
+
+app.delete("/deleteDocument", (req, res) => {
+  //delete document logic from the backend
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
