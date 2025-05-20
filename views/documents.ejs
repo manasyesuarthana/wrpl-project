@@ -1,33 +1,129 @@
 <%- include("partials/header.ejs") %>
+<!-- Add this line to include Bootstrap Icons -->
 
-<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px; position: sticky; top: 0; height: 100vh; overflow-y: auto;">
+<%
+// Test data array
+const documents = [
+  {
+    id: 1,
+    name: "JohnDoe_Resume.pdf",
+    type: "Resume",
+    uploaded: "May 12, 2023",
+    size: "2.4 MB"
+  },
+  {
+    id: 2,
+    name: "CoverLetter.docx",
+    type: "Cover Letter",
+    uploaded: "May 5, 2023",
+    size: "1.1 MB"
+  },
+  {
+    id: 3,
+    name: "ProjectPortfolio.pdf",
+    type: "Portfolio",
+    uploaded: "April 28, 2023",
+    size: "5.7 MB"
+  },
+  {
+    id: 4,
+    name: "References.txt",
+    type: "References",
+    uploaded: "April 15, 2023",
+    size: "0.3 MB"
+  },
+  {
+    id: 5,
+    name: "Certification.pdf",
+    type: "Certification",
+    uploaded: "June 1, 2023",
+    size: "1.8 MB"
+  },
+  {
+    id: 6,
+    name: "WorkSample.docx",
+    type: "Work Sample",
+    uploaded: "June 5, 2023",
+    size: "3.2 MB"
+  },
+  {
+    id: 7,
+    name: "Transcript.pdf",
+    type: "Education",
+    uploaded: "June 10, 2023",
+    size: "4.5 MB"
+  }
+];
+
+// Function to get icon based on file extension
+function getFileIcon(filename) {
+  const extension = filename.split('.').pop().toLowerCase();
+  switch(extension) {
+    case 'pdf':
+      return '<i class="bi bi-file-earmark-pdf text-danger me-2"></i>';
+    case 'docx':
+    case 'doc':
+      return '<i class="bi bi-file-earmark-word text-primary me-2"></i>';
+    case 'txt':
+      return '<i class="bi bi-file-earmark-text me-2"></i>';
+    default:
+      return '<i class="bi bi-file-earmark me-2"></i>';
+  }
+}
+
+// Pagination and search logic
+const itemsPerPage = 5;
+let currentPage = typeof page !== 'undefined' ? parseInt(page) : 1;;
+const searchQuery = typeof query !== 'undefined' ? query.toLowerCase() : '';
+
+// Filter documents based on search query
+const filteredDocuments = documents.filter(doc => {
+  if (!searchQuery) return true;
+  return (
+    doc.name.toLowerCase().includes(searchQuery) ||
+    doc.type.toLowerCase().includes(searchQuery) ||
+    doc.uploaded.toLowerCase().includes(searchQuery
+  ))
+});
+
+// Calculate total pages
+const totalPages = Math.ceil(filteredDocuments.length / itemsPerPage);
+
+// Get current page documents
+const startIndex = (currentPage - 1) * itemsPerPage;
+const endIndex = startIndex + itemsPerPage;
+const currentDocuments = filteredDocuments.slice(startIndex, endIndex);
+%>
+
+<div class="d-flex flex-row">
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px; position: sticky; top: 0; height: 100vh; overflow-y: auto;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-      <span class="fs-4">Sidebar</span>
+      <i class="bi bi-briefcase me-2" style="font-size: 1.5rem;"></i>
+      <span class="fs-4">JobTrack</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
         <a href="/" class="nav-link text-white" aria-current="page">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+          <i class="bi bi-house-door me-2"></i>
           Home
         </a>
       </li>
       <li>
         <a href="/reminders" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+          <i class="bi bi-bell me-2"></i>
           Reminders
         </a>
       </li>
       <li>
         <a href="/contacts" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+          <i class="bi bi-people me-2"></i>
           Contacts
         </a>
       </li>
       <li>
         <a href="/documents" class="nav-link active">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+          <i class="bi bi-folder me-2"></i>
           Documents
         </a>
       </li>
@@ -39,16 +135,15 @@
         <strong>mdo</strong>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign out</a></li>
       </ul>
     </div>
   </div>
-<!--START CODING HERE-->
-<!-- Sign Out Modal -->
+
+  <!-- Sign Out Modal -->
   <div class="modal fade" id="signOutModal" tabindex="-1" aria-labelledby="signOutModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -65,11 +160,155 @@
             <!-- <form action="/logout" method="POST" style="display: inline;">
               <button type="submit" class="btn btn-danger">Sign Out</button>
             </form> (Can be added when backend logic for logout is ready.)-->
-
+            
             <a href="/login" class="btn btn-danger">Sign Out</a> <!-- Temporary redirect to /login -->
           </div>
       </div>
     </div>
   </div>
-<!--FINISH CODING HERE-->
+
+  <!-- Main Content Area -->
+  <div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2><i class="bi bi-folder me-2"></i>My Documents</h2>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
+        <i class="bi bi-upload me-2"></i>Upload Document
+      </button>
+    </div>
+
+    <!-- Document Filter/Search -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <form action="/documents" method="GET">
+          <div class="input-group">
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Search documents..." 
+              name="query"
+              value="<%= typeof query !== 'undefined' ? query : '' %>">
+            <button class="btn btn-outline-secondary" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Documents Table -->
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Uploaded</th>
+                <th scope="col">Size</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (currentDocuments.length === 0) { %>
+                <tr>
+                  <td colspan="5" class="text-center">No documents found</td>
+                </tr>
+              <% } else { %>
+                <% currentDocuments.forEach(document => { %>
+                  <tr>
+                    <td>
+                      <%- getFileIcon(document.name) %>
+                      <%= document.name %>
+                    </td>
+                    <td><%= document.type %></td>
+                    <td><%= document.uploaded %></td>
+                    <td><%= document.size %></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary me-2" title="Download">
+                        <i class="bi bi-download"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" title="Delete">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                <% }); %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <% if (filteredDocuments.length > itemsPerPage) { %>
+          <nav aria-label="Document pagination">
+            <ul class="pagination justify-content-center mt-4">
+              <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                <a class="page-link" href="/documents?query=<%= searchQuery %>&page=<%= currentPage - 1 %>" tabindex="-1">
+                  <i class="bi bi-chevron-left"></i>
+                </a>
+              </li>
+              <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                  <a class="page-link" href="/documents?query=<%= searchQuery %>&page=<%= i %>"><%= i %></a>
+                </li>
+              <% } %>
+              <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                <a class="page-link" href="/documents?query=<%= searchQuery %>&page=<%= currentPage + 1 %>">
+                  <i class="bi bi-chevron-right"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadModalLabel"><i class="bi bi-upload me-2"></i>Upload New Document</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="documentFile" class="form-label"><i class="bi bi-file-earmark me-2"></i>Select File</label>
+            <input class="form-control" type="file" id="documentFile">
+          </div>
+          <div class="mb-3">
+            <label for="documentType" class="form-label"><i class="bi bi-tag me-2"></i>Document Type</label>
+            <select class="form-select" id="documentType">
+              <option selected>Choose type...</option>
+              <option>Resume</option>
+              <option>Cover Letter</option>
+              <option>Portfolio</option>
+              <option>References</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="documentDescription" class="form-label"><i class="bi bi-text-paragraph me-2"></i>Description (Optional)</label>
+            <textarea class="form-control" id="documentDescription" rows="2"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-1"></i>
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary">
+          <i class="bi bi-upload me-1"></i>
+          Upload
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%- include("partials/footer.ejs") %>

@@ -28,8 +28,14 @@ router.get("/reminders", (req, res) => {
   res.render("../views/reminders.ejs");
 });
 
-router.get("/documents", (req, res) => {
-  res.render("../views/documents.ejs");
+router.get('/documents', (req, res) => {
+  const query = req.query.query || '';
+  const page = parseInt(req.query.page) || 1;
+
+  res.render('documents', {
+    query,
+    page
+  });
 });
 
 router.get("/viewJobDetail", (req, res) => {
