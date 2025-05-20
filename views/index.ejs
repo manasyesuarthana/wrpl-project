@@ -98,56 +98,157 @@
 <!-- TEMPORARY PLACEHOLDER DATA -->
 <script>
   const exampleApplications = [
-      { appliedPosition: "Google", companyName: "Data Scientist", dateApplied: "16/05/2025", status: "Have not applied"},
-      { appliedPosition: "Google", companyName: "Data Scientist", dateApplied: "16/05/2025", status: "Have not applied"}
+    { appliedPosition: "Data Scientist", companyName: "Google", dateApplied: "15/05/2025", status: "Have not applied" },
+    { appliedPosition: "Data Scientist", companyName: "Google", dateApplied: "15/05/2025", status: "Have not applied" },
+    { appliedPosition: "Data Scientist", companyName: "Google", dateApplied: "15/05/2025", status: "Have not applied" }
   ];
 
-  function renderApplications(app) {
-      const container = document.getElementById("applications-container");
-      container.innerHTML = '';
-      
-      app.forEach(app => {
-          const card = `
-              <div class="col-md-4 mb-3">
-                <div class="card bg-dark text-white border-light">
-                  <div class="card-body">
-                    <h5 class="card-title">${app.appliedPosition}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${app.companyName}</h6>
-                    <p class="card-text">
-                      <strong>Date Applied:</strong> ${app.dateApplied}<br>
-                      <strong>Status:</strong> ${app.status}
-                    </p>
-                    <div class="d-flex justify-content-between">
-                      <a href="/viewJobDetail" class="btn btn-primary">View More</a>
-                      <a href="/deleteJobDetail" class="btn btn-danger">Delete</a>
-                    </div>
-                  </div>
-                </div>
+  // --- Variables for deletion ---
+  let positionToDelete = null;
+  let companyNameToDelete = null; // Changed variable name for clarity
+
+  function renderApplications(applicationsArray) { // Renamed parameter for clarity
+    const container = document.getElementById("applications-container");
+    container.innerHTML = ''; // Clear existing cards
+
+    if (!applicationsArray || applicationsArray.length === 0) {
+        container.innerHTML = '<div class="col-12"><p class="text-white text-center">No applications found.</p></div>';
+        return;
+    }
+    
+    applicationsArray.forEach(appItem => { // Renamed loop variable for clarity
+      const card = `
+        <div class="col-md-4 mb-3">
+          <div class="card bg-dark text-white border-light">
+            <div class="card-body">
+              <h5 class="card-title">${appItem.appliedPosition}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">${appItem.companyName}</h6>
+              <p class="card-text">
+                <strong>Date Applied:</strong> ${appItem.dateApplied}<br>
+                <strong>Status:</strong> ${appItem.status}
+              </p>
+              <div class="d-flex justify-content-between">
+                <a href="/viewJobDetail" class="btn btn-primary">View More</a> <button type="button" class="btn btn-danger delete-application-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteApplicationModal"
+                        data-applied-position="${appItem.appliedPosition}"
+                        data-company-name="${appItem.companyName}">
+                    Delete
+                </button>
               </div>
-          `;
-          container.innerHTML += card;
-      });
+            </div>
+          </div>
+        </div>
+      `;
+      container.innerHTML += card;
+    });
   }
 
   function filterApplications(searchTerm) {
-      searchTerm = searchTerm.toLowerCase();
-      return exampleApplications.filter(contact => 
-          app.appliedPosition.toLowerCase().includes(searchTerm) ||
-          app.companyName.toLowerCase().includes(searchTerm) ||
-          app.dateApplied.toLowerCase().includes(searchTerm) ||
-          app.status.toLowerCase().includes(searchTerm));
+    searchTerm = searchTerm.toLowerCase();
+    return exampleApplications.filter(appItem => 
+      appItem.appliedPosition.toLowerCase().includes(searchTerm) ||
+      appItem.companyName.toLowerCase().includes(searchTerm) ||
+      appItem.dateApplied.toLowerCase().includes(searchTerm) || 
+      appItem.status.toLowerCase().includes(searchTerm)
+    );
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-      renderApplications(exampleApplications);
-      
-      const searchInput = document.getElementById('application-search');
-      searchInput.addEventListener('input', (e) => {
-          const filteredApplications = filterApplications(e.target.value);
-          renderApplications(filteredApplications);
+    renderApplications(exampleApplications);
+    
+    const searchInput = document.getElementById('application-search');
+    searchInput.addEventListener('input', (e) => {
+      const filteredApplications = filterApplications(e.target.value);
+      renderApplications(filteredApplications);
+    });
+
+    // --- Modal Event Listener ---
+    const deleteApplicationModalElement = document.getElementById('deleteApplicationModal');
+    const confirmDeleteAppButton = document.getElementById('confirmDeleteApplicationButton');
+
+    if (deleteApplicationModalElement) {
+      deleteApplicationModalElement.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; 
+        if (button) {
+          positionToDelete = button.getAttribute('data-applied-position');
+          companyNameToDelete = button.getAttribute('data-company-name');
+        }
+        
+        const modalBody = deleteApplicationModalElement.querySelector('#deleteApplicationModalBodyContent');
+        if (modalBody) {
+          modalBody.textContent = `Are you sure you want to delete the application for "${positionToDelete || ''}" at "${companyNameToDelete || ''}"?`;
+        }
       });
+    }
+
+    if (confirmDeleteAppButton) {
+      confirmDeleteAppButton.addEventListener('click', handleDeleteApplication);
+    }
   });
+
+  // --- Deletion Handler (TEMPORARY FOR THE FRONTEND, CAN BE REMOVED AFTER BACKEND IS INTEGRATED) ---
+  function handleDeleteApplication() {
+    if (!positionToDelete || !companyNameToDelete) {
+      console.warn("Application details for deletion are missing.");
+
+      const modalInstanceBail = bootstrap.Modal.getInstance(document.getElementById('deleteApplicationModal'));
+      if (modalInstanceBail) modalInstanceBail.hide();
+      return;
+    }
+
+    // Find the index of the application to delete in the original array
+    const indexToDelete = exampleApplications.findIndex(appItem => 
+      appItem.appliedPosition === positionToDelete && appItem.companyName === companyNameToDelete
+    );
+
+    if (indexToDelete > -1) {
+      exampleApplications.splice(indexToDelete, 1); // Remove from the main array
+
+      // Re-filter and re-render to update the view
+      const searchInput = document.getElementById('application-search');
+      const currentSearchTerm = searchInput.value;
+      const filteredApplicationsAfterDeletion = filterApplications(currentSearchTerm);
+      renderApplications(filteredApplicationsAfterDeletion);
+    } else {
+      console.warn("Application not found for deletion:", positionToDelete, companyNameToDelete);
+    }
+
+    // Hide the modal
+    const modalInstance = bootstrap.Modal.getInstance(document.getElementById('deleteApplicationModal'));
+    if (modalInstance) {
+      modalInstance.hide();
+    }
+
+    // Reset stored values
+    positionToDelete = null;
+    companyNameToDelete = null;
+  }
 </script>
+</div>
+
+<!-- Job Deletion Modal -->
+<div class="modal fade" id="deleteApplicationModal" tabindex="-1" aria-labelledby="deleteApplicationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title" id="deleteApplicationModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="deleteApplicationModalBodyContent">
+        Are you sure you want to delete this application?
+      </div>
+      <div class="modal-footer border-secondary">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteApplicationButton">Delete Application</button> <!-- Temporary frontend logic to delete example data for demonstration -->
+
+        <!-- <form action="/deleteJob" method="DELETE" style="display: inline;">
+              <button type="submit" class="btn btn-danger">Delete Contact</button>
+            </form> (Can be added when backend logic for Job Detail deletion is ready.) -->
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <%- include("partials/footer.ejs") %>
