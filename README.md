@@ -27,7 +27,7 @@ JobTrek is a web-based application developed as a final project for the **Worksh
 * [Teuku Achmad Ra'di Syah](https://github.com/yarin-sys)
 * [I Putu Herjuna Manasye Suarthana](https://github.com/HermanCS-07)
 
-## Starting the Web App
+## 🌐 Starting the Web App
 
 1. **Clone the repository**
 ```bash
