@@ -26,3 +26,25 @@ JobTrek is a web-based application developed as a final project for the **Worksh
 * [Darryl Chandra](https://github.com/darc12345)
 * [Teuku Achmad Ra'di Syah](https://github.com/yarin-sys)
 * [I Putu Herjuna Manasye Suarthana](https://github.com/HermanCS-07)
+
+## Starting the Web App
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/sfh525/wrpl-project.git
+```
+
+2. **Install Dependencies**
+```bash
+npm install
+```
+
+3. **Start the server**
+```bash
+node server.js
+```
+
+4. **Access the Web App**
+```bash
+http://localhost:3000
+```
