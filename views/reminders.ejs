@@ -1,55 +1,114 @@
 <%- include("partials/header.ejs") %>
-<div class="d-flex justify-content-start">
-  <!--SIDEBAR-->
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100" style="width: 280px; position: sticky; top: 0; height: 100vh; overflow-y: auto;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-      <span class="fs-4">Sidebar</span>
-    </a>
-  <hr>
-  <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <a href="/" class="nav-link text-white" aria-current="page">
-        <i class="bi bi-house-door me-2"></i>
-        Home
-      </a>
-    </li>
-    <li>
-      <a href="/reminders" class="nav-link active">
-        <i class="bi bi-bell me-2"></i>
-        Reminders
-      </a>
-    </li>
-    <li>
-      <a href="/contacts" class="nav-link text-white">
-        <i class="bi bi-people me-2"></i>
-        Contacts
-      </a>
-    </li>
-    <li>
-      <a href="/documents" class="nav-link text-white">
-        <i class="bi bi-folder me-2"></i>
-        Documents
-      </a>
-    </li>
-  </ul>
-  <hr>
-  <div class="dropdown">
-    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-      <strong>mdo</strong>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-      <li><a class="dropdown-item" href="#">New project...</a></li>
-      <li><a class="dropdown-item" href="#">Settings</a></li>
-      <li><a class="dropdown-item" href="#">Profile</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign out</a></li>
-    </ul>
-  </div>
-</div>
 
-<!--REMINDER--> 
+<!-- Sidebar Responsive style Configuration -->
+<style>
+  @media (min-width: 768px) {
+    #sidebar {
+      width: 280px !important;
+      height: 100vh !important;
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
+    }
+  }
+  @media (max-width: 767.98px) {
+    #sidebar {
+      flex-direction: column !important;
+      align-items: center;
+    }
+
+    #sidebar > a {
+      justify-content: center !important;
+      margin-bottom: 1rem;
+    }
+
+    #sidebar > a img {
+      margin-right: 0 !important;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    #sidebar > a span {
+      display: block;
+      text-align: center;
+    }
+  }
+/*to make the navigation item 2 by 2 grid */
+@media (max-width: 767.98px) {
+  ul.nav {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem 1rem;
+    width: 100%;
+    padding-left: 0;
+  }
+  ul.nav > li {
+    width: 100%;
+  }
+  ul.nav > li > a {
+    text-align: center;
+    display: block;
+  }
+}
+/*push down the signup bottom lower a bit in smaller screen */
+@media (max-width: 767.98px) {
+  #signout-link {
+    margin-top: 1.5rem; /* Adjust spacing */
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>
+  <!-- Sidebar Responsive style Configuration -->
+
+  <div class="d-flex flex-column flex-md-row">
+    <!-- Start of Sidebar -->
+    <div id="sidebar" class="d-flex flex-row flex-md-column flex-shrink-0 p-3 text-bg-dark w-100 w-md-auto">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <img src="/asset/JobTrek_Logo_No_Title.svg" alt="JobTrek Logo" style="height: 40px;" class="me-2">
+        <span class="fs-4">JobTrack</span> <!-- logo -->
+      </a>
+      <hr class="d-none d-md-block">
+      <ul class="nav nav-pills flex-row flex-md-column mb-auto w-100 justify-content-around justify-content-md-start">
+        <li class="nav-item">
+          <a href="/" class="nav-link text-white" aria-current="page">
+            <i class="bi bi-house-door me-2"></i> Home
+          </a>
+        </li>
+        <li>
+          <a href="/reminders" class="nav-link active">
+            <i class="bi bi-bell me-2"></i> Reminders
+          </a>
+        </li>
+        <li>
+          <a href="/contacts" class="nav-link text-white">
+            <i class="bi bi-people me-2"></i> Contacts
+          </a>
+        </li>
+        <li>
+          <a href="/documents" class="nav-link text-white">
+            <i class="bi bi-folder me-2"></i> Documents
+          </a>
+        </li>
+      </ul>
+      <hr class="d-none d-md-block">
+      <div class="dropdown ms-auto ms-md-0 sidebar-footer">
+        <a href="#" id="signout-link" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+          <strong>mdo</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+          <li><a class="dropdown-item" href="#">New project...</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign out</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- End of Sidebar -->
+
+<!--REMINDER-->
   <div class="card flex-grow min-vh-100 vw-100 overflow-auto"> <!-- style="border-radius: 15px;" -->
     <div class="card-body p-5">
       <h6 class="mb-3">Reminders List</h6>
@@ -60,10 +119,10 @@
         </div>
         <div>
           <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg ms-2">Add</button>
-        </div>  
+        </div>
       </form>
       <ul class="list-group mb-0">
-        
+
       </ul>
     </div>
   </div>
@@ -82,12 +141,12 @@
         </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            
+
             <!-- <form action="/logout" method="POST" style="display: inline;">
               <button type="submit" class="btn btn-danger">Sign Out</button>
             </form> (Can be added when backend logic for logout is ready.)-->
 
-            <a href="/deleteReminder" class="btn btn-danger">Sign Out</a> <!-- Temporary redirect to /login -->
+            <a href="/login" class="btn btn-danger">Sign Out</a> <!-- Temporary redirect to /login -->
           </div>
       </div>
     </div>
@@ -121,15 +180,15 @@
         <i class="fas fa-times">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-trash" viewBox="0 0 16 16">
-            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 
-                    0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 
-                    .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 
-                    .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1
+                    0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1
+                    .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1
+                    .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0
                     0 1 0z"/>
-            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 
-                    1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 
-                    1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 
-                    1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 
+            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0
+                    1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0
+                    1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0
+                    1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0
                     1 1 1z"/>
           </svg>
         </i>
@@ -139,7 +198,7 @@
 
 
     list.appendChild(li);
-    
+
     // Send the data to the server using fetch
     fetch('/reminders', {
       method: 'POST',
@@ -160,7 +219,7 @@
     .catch(error => {
       console.error('Error:', error);
     });
-    
+
     input.value = '';
   });
 
