@@ -12,6 +12,56 @@ import { NeonDbError } from "@neondatabase/serverless";
 import { and, eq } from "drizzle-orm";
 export class Repository {
     constructor(db) {
+        this.deleteContact = (user_id, contact_email) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.db
+                    .delete(recruiterContactsTable)
+                    .where(and(eq(recruiterContactsTable.user_id, user_id), eq(recruiterContactsTable.contact_email, contact_email)));
+            }
+            catch (error) {
+                console.log(error);
+                throw new Error("An error occured during database call.");
+            }
+            return;
+        });
+        this.deleteJob = (user_id, company_name, applied_position, date_applied) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.db
+                    .delete(jobsTable)
+                    .where(and(eq(jobsTable.user_id, user_id), eq(jobsTable.company_name, company_name), eq(jobsTable.applied_position, applied_position), eq(jobsTable.date_applied, date_applied)));
+            }
+            catch (error) {
+                console.log(error);
+                throw new Error("An error occured during database call.");
+            }
+            return;
+        });
+        this.getJobs = (user_id) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const jobs = yield this.db
+                    .select()
+                    .from(jobsTable)
+                    .where(eq(jobsTable.user_id, user_id));
+                return jobs;
+            }
+            catch (error) {
+                console.log(error);
+                throw new Error("An error occured during database call.");
+            }
+        });
+        this.getContacts = (user_id) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const contacts = yield this.db
+                    .select()
+                    .from(recruiterContactsTable)
+                    .where(eq(recruiterContactsTable.user_id, user_id));
+                return contacts;
+            }
+            catch (error) {
+                console.log(error);
+                throw new Error("An error occured during database call.");
+            }
+        });
         this.db = db;
     }
     postSubmitJob(user_id, company_name, applied_position, company_address, date_applied, country_id, company_website, status_id, additional_notes) {

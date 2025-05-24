@@ -5,7 +5,6 @@ CREATE TABLE "country_ids" (
 );
 --> statement-breakpoint
 CREATE TABLE "job_applications" (
-	"job_id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid NOT NULL,
 	"company_name" varchar(255) NOT NULL,
 	"applied_position" varchar(255) NOT NULL,
@@ -16,18 +15,19 @@ CREATE TABLE "job_applications" (
 	"status_id" "application_status" NOT NULL,
 	"additional_notes" varchar(255),
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "pk_job_applications" PRIMARY KEY("user_id","company_name","applied_position","date_applied")
 );
 --> statement-breakpoint
 CREATE TABLE "recruiter_contacts" (
-	"recruiter_contact_id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"user_id" uuid NOT NULL,
 	"role_in_company" varchar(255) NOT NULL,
 	"phone_number" varchar(255) NOT NULL,
 	"contact_email" varchar(255) NOT NULL,
 	"linkedin_profile" varchar(255),
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "pk_recruiter_contacts" PRIMARY KEY("user_id","contact_email")
 );
 --> statement-breakpoint
 CREATE TABLE "users" (

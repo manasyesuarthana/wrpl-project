@@ -110,5 +110,65 @@ export class Repository{
         };
         return ;
     }
-
+    deleteContact = async (user_id: string, contact_email: string): Promise<void> => {
+        try{
+            await this.db
+            .delete(recruiterContactsTable)
+            .where(
+                and(
+                    eq(recruiterContactsTable.user_id, user_id),
+                    eq(recruiterContactsTable.contact_email, contact_email)
+                )
+            );
+        } catch(error){
+            console.log(error);
+            throw new Error("An error occured during database call.");
+        }
+        return ;
+    }
+    deleteJob = async (        user_id: string, 
+        company_name:string, 
+        applied_position:string,
+        date_applied:string): Promise<void> => {
+        try{
+            await this.db
+            .delete(jobsTable)
+            .where(
+                and(
+                    eq(jobsTable.user_id, user_id),
+                    eq(jobsTable.company_name, company_name),
+                    eq(jobsTable.applied_position, applied_position),
+                    eq(jobsTable.date_applied, date_applied)
+                )
+            );
+        } catch(error){
+            console.log(error);
+            throw new Error("An error occured during database call.");
+        }
+        return ;
+    }
+    getJobs = async (user_id: string): Promise<Array<any>> => {
+        try{
+            const jobs = await this.db
+            .select()
+            .from(jobsTable)
+            .where(eq(jobsTable.user_id, user_id));
+            return jobs;
+        } catch(error){
+            console.log(error);
+            throw new Error("An error occured during database call.");
+        }
+    };
+    getContacts = async (user_id: string): Promise<Array<any>> => {
+        try{
+            const contacts = await this.db
+            .select()
+            .from(recruiterContactsTable)
+            .where(eq(recruiterContactsTable.user_id, user_id));
+            return contacts;
+        } catch(error){
+            console.log(error);
+            throw new Error("An error occured during database call.");
+        }
+    }
 };
