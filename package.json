@@ -4,17 +4,19 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "JobTrek is a web-based application developed as a final project for the **Workshop Rekayasa Perangkat Lunak (WRPL)** course. It is designed to help job seekers efficiently organize and track their job applications, contact details, reminders, and associated documents.",
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
     "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
     "drizzle-kit": "^0.30.5",
-    "drizzle-orm": "^0.40.0",
+    "drizzle-orm": "^0.40.1",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-ejs-layouts": "^2.5.1",
@@ -34,5 +36,13 @@
   },
   "jest": {
     "transform": {}
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sfh525/wrpl-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sfh525/wrpl-project/issues"
+  },
+  "homepage": "https://github.com/sfh525/wrpl-project#readme"
 }
