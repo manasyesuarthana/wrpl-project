@@ -1,5 +1,5 @@
 {
-  "id": "3d022e57-e438-4660-9cb0-4956a0e171f0",
+  "id": "d0cb2337-5140-4dfa-b802-fededa0d28f6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -33,13 +33,6 @@
       "name": "job_applications",
       "schema": "",
       "columns": {
-        "job_id": {
-          "name": "job_id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
         "user_id": {
           "name": "user_id",
           "type": "uuid",
@@ -139,7 +132,17 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "pk_job_applications": {
+          "name": "pk_job_applications",
+          "columns": [
+            "user_id",
+            "company_name",
+            "applied_position",
+            "date_applied"
+          ]
+        }
+      },
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
@@ -149,13 +152,6 @@
       "name": "recruiter_contacts",
       "schema": "",
       "columns": {
-        "recruiter_contact_id": {
-          "name": "recruiter_contact_id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
         "user_id": {
           "name": "user_id",
           "type": "uuid",
@@ -217,7 +213,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "pk_recruiter_contacts": {
+          "name": "pk_recruiter_contacts",
+          "columns": [
+            "user_id",
+            "contact_email"
+          ]
+        }
+      },
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},

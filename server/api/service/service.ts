@@ -155,4 +155,42 @@ export class Service{
         }
         return {message: 'Error during registration attempt', status:500,isError:true}
     }
+    deleteContact = async (user_id: string, contact_email: string): Promise<ServiceResponse<null>> => {
+        try {
+            await this.repository.deleteContact(user_id, contact_email);
+            return { message: 'Contact deleted successfully', status: 200, isError: false, data: null };
+        } catch (error: any) {
+            return { message: error.message || 'Error deleting contact', status: 500, isError: true, data: null };
+        }
+    }
+    deleteJob = async (
+        user_id: string, 
+        company_name:string, 
+        applied_position:string,
+        date_applied:string
+    ): Promise<ServiceResponse<null>> => {
+        try {
+            await this.repository.deleteJob(user_id, company_name, applied_position, date_applied);
+            return { message: 'Job deleted successfully', status: 200, isError: false, data: null };
+        } catch (error: any) {  
+            return { message: error.message || 'Error deleting job', status: 500, isError: true, data: null };
+        }
+    }
+    getJobs = async (user_id: string): Promise<ServiceResponse<Array<any>>> => {
+        try {
+            const jobs = await this.repository.getJobs(user_id);
+            return { message: 'success', status: 200, isError: false, data: jobs };
+        } catch (error: any) {
+            return { message: error.message || 'Error fetching jobs', status: 500, isError: true, data: null };
+        }
+    }
+    getContacts = async (user_id: string): Promise<ServiceResponse<Array<any>>> => {
+        try {
+            const contacts = await this.repository.getContacts(user_id);
+            return { message: 'success', status: 200, isError: false, data: contacts };
+        } catch (error: any) {
+            return { message: error.message || 'Error fetching contacts', status: 500, isError: true, data: null };
+        }
+    }
+
 };

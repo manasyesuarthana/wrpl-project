@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import {Controller} from './server/api/controller/controller.js'
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
+import 'dotenv/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,32 +38,22 @@ app.get("/", (req, res) => {
 });
 
 app.post("/submit-job", controller.postSubmitJob);
-
 app.post("/submit-contacts", controller.postSubmitContact);
-
 app.post("/login", controller.postLogin);
-
 app.post("/register", controller.postRegister);
-
 app.post("/reminders", (req, res) => {
   console.log(req.body);
 });
 
-app.post("/logout", (req, res) => {
-  //logout logic from the backend
-});
+app.delete("/logout", controller.deleteLogout);
 
-app.delete("/deleteContact", (req, res) =>{
-  //delete contact logic from the backend
-});
+app.delete("/contact", controller.deleteContact);
+app.delete("/job", controller.deleteJob);
+app.delete("/document", controller.deleteDocument);
 
-app.delete("/deleteJob", (req, res) => {
-  //delete job logic from the backend
-});
-
-app.delete("/deleteDocument", (req, res) => {
-  //delete document logic from the backend
-});
+app.get("/jobs", controller.getJobs);
+app.get("/contacts", controller.getContacts);
+app.get("/documents", controller.getDocuments);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

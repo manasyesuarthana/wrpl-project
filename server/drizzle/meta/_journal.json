@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1745841703550,
-      "tag": "0000_equal_gargoyle",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1747749557146,
-      "tag": "0001_daily_black_widow",
+      "when": 1748102325641,
+      "tag": "0000_daffy_gladiator",
       "breakpoints": true
     }
   ]

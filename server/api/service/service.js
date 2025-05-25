@@ -95,6 +95,42 @@ export class Service {
             }
             return { message: 'Error during registration attempt', status: 500, isError: true };
         });
+        this.deleteContact = (user_id, contact_email) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.repository.deleteContact(user_id, contact_email);
+                return { message: 'Contact deleted successfully', status: 200, isError: false, data: null };
+            }
+            catch (error) {
+                return { message: error.message || 'Error deleting contact', status: 500, isError: true, data: null };
+            }
+        });
+        this.deleteJob = (user_id, company_name, applied_position, date_applied) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.repository.deleteJob(user_id, company_name, applied_position, date_applied);
+                return { message: 'Job deleted successfully', status: 200, isError: false, data: null };
+            }
+            catch (error) {
+                return { message: error.message || 'Error deleting job', status: 500, isError: true, data: null };
+            }
+        });
+        this.getJobs = (user_id) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const jobs = yield this.repository.getJobs(user_id);
+                return { message: 'success', status: 200, isError: false, data: jobs };
+            }
+            catch (error) {
+                return { message: error.message || 'Error fetching jobs', status: 500, isError: true, data: null };
+            }
+        });
+        this.getContacts = (user_id) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const contacts = yield this.repository.getContacts(user_id);
+                return { message: 'success', status: 200, isError: false, data: contacts };
+            }
+            catch (error) {
+                return { message: error.message || 'Error fetching contacts', status: 500, isError: true, data: null };
+            }
+        });
         this.repository = new Repository(db);
     }
 }
