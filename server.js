@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/api/v1/job", controller.postSubmitJob);
+app.post("/api/v1/jobs", controller.postSubmitJob);
 app.post("/api/v1/contacts", controller.postSubmitContact);
 app.post("/api/v1/login", controller.postLogin);
 app.post("/api/v1/register", controller.postRegister);
@@ -48,7 +48,7 @@ app.post("/api/v1/reminders", (req, res) => {
 app.delete("/api/v1/logout", controller.deleteLogout);
 
 app.delete("/api/v1/contacts", controller.deleteContact);
-app.delete("/api/v1/job", controller.deleteJob);
+app.delete("/api/v1/jobs", controller.deleteJob);
 // app.delete("/document", controller.deleteDocument);
 
 app.get("/api/v1/jobs", controller.getJobs);
