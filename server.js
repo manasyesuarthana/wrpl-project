@@ -49,11 +49,11 @@ app.delete("/logout", controller.deleteLogout);
 
 app.delete("/contact", controller.deleteContact);
 app.delete("/job", controller.deleteJob);
-app.delete("/document", controller.deleteDocument);
+// app.delete("/document", controller.deleteDocument);
 
 app.get("/jobs", controller.getJobs);
 app.get("/contacts", controller.getContacts);
-app.get("/documents", controller.getDocuments);
+// app.get("/documents", controller.getDocuments);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
