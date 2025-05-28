@@ -37,8 +37,8 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/api/v1/submit-job", controller.postSubmitJob);
-app.post("/api/v1/submit-contacts", controller.postSubmitContact);
+app.post("/api/v1/job", controller.postSubmitJob);
+app.post("/api/v1/contacts", controller.postSubmitContact);
 app.post("/api/v1/login", controller.postLogin);
 app.post("/api/v1/register", controller.postRegister);
 app.post("/api/v1/reminders", (req, res) => {
