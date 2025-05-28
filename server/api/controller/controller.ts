@@ -20,9 +20,9 @@ const postSubmitJobSchema = z.object({
   appliedPosition: z.string().nonempty(),
   companyAddress: z.string().optional(),
   dateApplied: z.string().nonempty(),
-  country: z.number(),
+  country: z.number(), //change to string
   companyWebsite: z.string().optional(),
-  status: z.number(),
+  status: z.number(), // change to string
   additional_notes: z.string().optional(),
 });
 

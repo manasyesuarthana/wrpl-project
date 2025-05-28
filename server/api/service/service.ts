@@ -41,9 +41,9 @@ export class Service{
         applied_position: string,
         company_address: string|null,
         date_applied: string,
-        country_id: number,
+        country_id: string,
         company_website: string|null,
-        status_id: number,
+        status_id: string,
         additional_notes: string|null,
     ):Promise<ServiceResponse<null>> => {
         if(!company_address){
@@ -62,9 +62,9 @@ export class Service{
                 applied_position,
                 company_address,
                 date_applied,
-                country_id,
+                Number(country_id),
                 company_website,
-                status_id,
+                Number(status_id),
                 additional_notes
             );
             return {message:'Job submitted successfully', status:201, isError:false, data: null}
