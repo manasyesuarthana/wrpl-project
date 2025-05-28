@@ -47,7 +47,7 @@ app.post("/api/v1/reminders", (req, res) => {
 
 app.delete("/api/v1/logout", controller.deleteLogout);
 
-app.delete("/api/v1/contact", controller.deleteContact);
+app.delete("/api/v1/contacts", controller.deleteContact);
 app.delete("/api/v1/job", controller.deleteJob);
 // app.delete("/document", controller.deleteDocument);
 
