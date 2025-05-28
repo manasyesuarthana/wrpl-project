@@ -37,22 +37,22 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/submit-job", controller.postSubmitJob);
-app.post("/submit-contacts", controller.postSubmitContact);
-app.post("/login", controller.postLogin);
-app.post("/register", controller.postRegister);
-app.post("/reminders", (req, res) => {
+app.post("/api/v1/submit-job", controller.postSubmitJob);
+app.post("/api/v1/submit-contacts", controller.postSubmitContact);
+app.post("/api/v1/login", controller.postLogin);
+app.post("/api/v1/register", controller.postRegister);
+app.post("/api/v1/reminders", (req, res) => {
   console.log(req.body);
 });
 
-app.delete("/logout", controller.deleteLogout);
+app.delete("/api/v1/logout", controller.deleteLogout);
 
-app.delete("/contact", controller.deleteContact);
-app.delete("/job", controller.deleteJob);
+app.delete("/api/v1/contact", controller.deleteContact);
+app.delete("/api/v1/job", controller.deleteJob);
 // app.delete("/document", controller.deleteDocument);
 
-app.get("/jobs", controller.getJobs);
-app.get("/contacts", controller.getContacts);
+app.get("/api/v1/jobs", controller.getJobs);
+app.get("/api/v1/contacts", controller.getContacts);
 // app.get("/documents", controller.getDocuments);
 
 app.listen(port, () => {

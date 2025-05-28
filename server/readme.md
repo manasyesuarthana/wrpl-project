@@ -9,7 +9,7 @@ This API provides endpoints for user authentication, job application tracking, a
 ### 1. User Login
 
 **Method:** POST
-**Path:** `/api/login`
+**Path:** `/api/v1/login`
 **Authentication Required:** No
 
 **Request Body:**
@@ -38,7 +38,7 @@ Sets a session cookie with `user_id`.
 ### 2. User Registration
 
 **Method:** POST
-**Path:** `/api/register`
+**Path:** `/api/v1/register`
 **Authentication Required:** No
 
 **Request Body:**
@@ -66,7 +66,7 @@ Sets a session cookie with `user_id`.
 ### 3. User Logout
 
 **Method:** DELETE
-**Path:** `/api/logout`
+**Path:** `/api/v1/logout`
 **Authentication Required:** Yes
 
 **Success Response (200):**
@@ -87,7 +87,7 @@ Destroys the session.
 ### 1. Submit a Job Application
 
 **Method:** POST
-**Path:** `/api/jobs`
+**Path:** `/api/v1/jobs`
 **Authentication Required:** Yes
 
 **Request Body:**
@@ -119,7 +119,7 @@ Destroys the session.
 ### 2. Retrieve All Jobs
 
 **Method:** GET
-**Path:** `/api/jobs`
+**Path:** `/api/v1/jobs`
 **Authentication Required:** Yes
 
 **Success Response (200):**
@@ -139,7 +139,7 @@ Destroys the session.
 ### 3. Delete a Job Application
 
 **Method:** DELETE
-**Path:** `/api/jobs`
+**Path:** `/api/v1/jobs`
 **Authentication Required:** Yes
 
 **Request Body:**
@@ -168,7 +168,7 @@ Destroys the session.
 ### 1. Submit a Contact
 
 **Method:** POST
-**Path:** `/api/contacts`
+**Path:** `/api/v1/contacts`
 **Authentication Required:** Yes
 
 **Request Body:**
@@ -196,7 +196,7 @@ Destroys the session.
 ### 2. Retrieve All Contacts
 
 **Method:** GET
-**Path:** `/api/contacts`
+**Path:** `/api/v1/contacts`
 **Authentication Required:** Yes
 
 **Success Response (200):**
@@ -216,7 +216,7 @@ Destroys the session.
 ### 3. Delete a Contact
 
 **Method:** DELETE
-**Path:** `/api/contacts`
+**Path:** `/api/v1/contacts`
 **Authentication Required:** Yes
 
 **Request Body:**
