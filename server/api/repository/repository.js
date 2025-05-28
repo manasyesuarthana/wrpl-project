@@ -39,7 +39,16 @@ export class Repository {
         this.getJobs = (user_id) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const jobs = yield this.db
-                    .select()
+                    .select({
+                    companyName: jobsTable.company_name,
+                    appliedPosition: jobsTable.applied_position,
+                    companyAddress: jobsTable.company_address,
+                    dateApplied: jobsTable.date_applied,
+                    countryId: jobsTable.country_id,
+                    companyWebsite: jobsTable.company_website,
+                    statusId: jobsTable.status_id,
+                    additionalNotes: jobsTable.additional_notes,
+                })
                     .from(jobsTable)
                     .where(eq(jobsTable.user_id, user_id));
                 return jobs;
@@ -52,7 +61,14 @@ export class Repository {
         this.getContacts = (user_id) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const contacts = yield this.db
-                    .select()
+                    .select({
+                    Name: recruiterContactsTable.name,
+                    company: recruiterContactsTable.company_name,
+                    role: recruiterContactsTable.role_in_company,
+                    phoneNumber: recruiterContactsTable.phone_number,
+                    contactEmail: recruiterContactsTable.contact_email,
+                    linkedinProfile: recruiterContactsTable.linkedin_profile,
+                })
                     .from(recruiterContactsTable)
                     .where(eq(recruiterContactsTable.user_id, user_id));
                 return contacts;
@@ -88,7 +104,7 @@ export class Repository {
             return;
         });
     }
-    postSubmitContact(user_id, role_in_company, phone_number, contact_email, linkedin_profile) {
+    postSubmitContact(user_id, role_in_company, phone_number, contact_email, linkedin_profile, name, company_name) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.db
@@ -98,7 +114,9 @@ export class Repository {
                     role_in_company: role_in_company,
                     phone_number: phone_number,
                     contact_email: contact_email,
-                    linkedin_profile: linkedin_profile
+                    linkedin_profile: linkedin_profile,
+                    name: name,
+                    company_name: company_name
                 });
             }
             catch (error) {

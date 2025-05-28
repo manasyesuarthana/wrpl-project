@@ -21,6 +21,8 @@ CREATE TABLE "job_applications" (
 --> statement-breakpoint
 CREATE TABLE "recruiter_contacts" (
 	"user_id" uuid NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"company_name" varchar(255) NOT NULL,
 	"role_in_company" varchar(255) NOT NULL,
 	"phone_number" varchar(255) NOT NULL,
 	"contact_email" varchar(255) NOT NULL,

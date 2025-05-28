@@ -94,7 +94,9 @@ export class Controller {
         req.body.roleInCompany,
         req.body.phoneNumber,
         req.body.contactEmail,
-        req.body.linkedinProfile
+        req.body.linkedinProfile,
+        req.body.name,
+        req.body.companyName
       );
 
       console.log(serviceResponse.message);

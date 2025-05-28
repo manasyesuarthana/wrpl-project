@@ -65,7 +65,7 @@ export class Controller {
             try {
                 sessionSchema.parse(req.session); // Validate session
                 postSubmitContactSchema.parse(req.body); // Validate request body
-                const serviceResponse = yield this.service.postSubmitContact(req.session.user_id, req.body.roleInCompany, req.body.phoneNumber, req.body.contactEmail, req.body.linkedinProfile);
+                const serviceResponse = yield this.service.postSubmitContact(req.session.user_id, req.body.roleInCompany, req.body.phoneNumber, req.body.contactEmail, req.body.linkedinProfile, req.body.name, req.body.companyName);
                 console.log(serviceResponse.message);
                 return res.status(serviceResponse.status).json({ message: serviceResponse.message });
             }

@@ -29,12 +29,12 @@ export class Service {
                 return { message: error.message || 'Error submitting job', status: 500, isError: true, data: null };
             }
         });
-        this.postSubmitContact = (user_id, role_in_company, phone_number, contact_email, linkedin_profile) => __awaiter(this, void 0, void 0, function* () {
+        this.postSubmitContact = (user_id, role_in_company, phone_number, contact_email, linkedin_profile, name, company_name) => __awaiter(this, void 0, void 0, function* () {
             if (!linkedin_profile) {
                 linkedin_profile = null;
             }
             try {
-                yield this.repository.postSubmitContact(user_id, role_in_company, phone_number, contact_email, linkedin_profile);
+                yield this.repository.postSubmitContact(user_id, role_in_company, phone_number, contact_email, linkedin_profile, name, company_name);
                 return { message: 'Contact submitted successfully', status: 201, isError: false, data: null };
             }
             catch (error) {
@@ -67,8 +67,11 @@ export class Service {
             }
         });
         this.postRegister = (email, password, password_confirmation) => __awaiter(this, void 0, void 0, function* () {
-            if (!password || !email) {
+            if (!password || !email || !password_confirmation) {
                 return { message: 'Empty credentials', status: 400, isError: true, data: null };
+            }
+            if (password !== password_confirmation) {
+                return { message: 'Passwords do not match', status: 400, isError: true, data: null };
             }
             try {
                 const salt = yield bcrypt.genSalt(3);

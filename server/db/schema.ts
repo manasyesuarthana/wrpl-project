@@ -58,6 +58,8 @@ export const jobsTable = pgTable("job_applications",
 export const recruiterContactsTable = pgTable("recruiter_contacts",
     {
         user_id: uuid().references(()=>usersTable.user_id).notNull(),
+        name:varchar({length:255}).notNull(),
+        company_name: varchar({length:255}).notNull(),
         role_in_company: varchar({length:255}).notNull(),
         phone_number: varchar({length:255}).notNull(),
         contact_email: varchar({length:255}).notNull(),

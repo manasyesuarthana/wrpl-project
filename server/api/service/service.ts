@@ -79,6 +79,8 @@ export class Service{
         phone_number: string,
         contact_email: string,
         linkedin_profile:string|null,
+        name:string,
+        company_name:string
     ):Promise<ServiceResponse<null>> =>{
        if(!linkedin_profile){
         linkedin_profile = null;
@@ -89,7 +91,10 @@ export class Service{
             role_in_company,
             phone_number,
             contact_email,
-            linkedin_profile);
+            linkedin_profile,
+            name,
+            company_name
+            );
            return {message:'Contact submitted successfully', status:201, isError:false, data: null};
        } catch(error: any){
             return {message: error.message || 'Error submitting contact', status:500, isError:true, data: null};
@@ -131,8 +136,11 @@ postRegister = async (
     password: string,
     password_confirmation: string,
 ): Promise<ServiceResponse<null>> => {
-    if (!password || !email) {
+    if (!password || !email || !password_confirmation) {
         return { message: 'Empty credentials', status: 400, isError: true, data: null };
+    }
+    if (password !== password_confirmation) {
+        return { message: 'Passwords do not match', status: 400, isError: true, data: null };
     }
 
     try {
