@@ -22,7 +22,7 @@ export class Service {
                 additional_notes = null;
             }
             try {
-                yield this.repository.postSubmitJob(user_id, company_name, applied_position, company_address, date_applied, country_id, company_website, status_id, additional_notes);
+                yield this.repository.postSubmitJob(user_id, company_name, applied_position, company_address, date_applied, Number(country_id), company_website, Number(status_id), additional_notes);
                 return { message: 'Job submitted successfully', status: 201, isError: false, data: null };
             }
             catch (error) {
