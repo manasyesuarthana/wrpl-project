@@ -67,33 +67,19 @@ export class Service {
             }
         });
         this.postRegister = (email, password, password_confirmation) => __awaiter(this, void 0, void 0, function* () {
-            let _this = this;
             if (!password || !email) {
                 return { message: 'Empty credentials', status: 400, isError: true, data: null };
             }
             try {
                 const salt = yield bcrypt.genSalt(3);
-                bcrypt.hash(password, salt, function (err, password_hash) {
-                    return __awaiter(this, void 0, void 0, function* () {
-                        if (err) {
-                            console.error("Error hashing password:", err);
-                            return { message: 'Error during hashing', status: 500, isError: true, data: null };
-                        }
-                        try {
-                            yield _this.repository.postRegister(email, password_hash);
-                            return { message: 'Account registered successfully', status: 201, isError: false, data: null };
-                        }
-                        catch (error) {
-                            console.error("Error saving user:", error);
-                            return { message: error.message || 'Error during registration attempt', status: 500, isError: true, data: null };
-                        }
-                    });
-                });
+                const password_hash = yield bcrypt.hash(password, salt);
+                yield this.repository.postRegister(email, password_hash);
+                return { message: 'Account registered successfully', status: 201, isError: false, data: null };
             }
             catch (error) {
+                console.error("Error during registration:", error);
                 return { message: error.message || 'Error during registration attempt', status: 500, isError: true, data: null };
             }
-            return { message: 'Error during registration attempt', status: 500, isError: true };
         });
         this.deleteContact = (user_id, contact_email) => __awaiter(this, void 0, void 0, function* () {
             try {

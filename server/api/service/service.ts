@@ -126,35 +126,26 @@ export class Service{
         }
     }
 
-    postRegister = async (
-        email:string,
-        password:string,
-        password_confirmation:string,
-    ):Promise<ServiceResponse<null>> => {
-        let _this = this;
-        if(!password || !email){
-            return {message:'Empty credentials', status:400, isError:true, data: null};
-        }
-        try {
-            const salt = await bcrypt.genSalt(3);
-            bcrypt.hash(password, salt, async function(err, password_hash) {
-                if (err) {
-                    console.error("Error hashing password:", err);
-                    return {message:'Error during hashing', status:500, isError:true, data: null};
-                }
-                try {
-                    await _this.repository.postRegister(email, password_hash);
-                    return {message:'Account registered successfully', status:201, isError:false, data: null};
-                } catch (error: any) {
-                    console.error("Error saving user:", error);
-                    return {message: error.message || 'Error during registration attempt', status:500, isError:true, data: null};
-                }
-            });
-        } catch (error: any) {
-            return {message: error.message || 'Error during registration attempt', status:500, isError:true, data: null};
-        }
-        return {message: 'Error during registration attempt', status:500,isError:true}
+postRegister = async (
+    email: string,
+    password: string,
+    password_confirmation: string,
+): Promise<ServiceResponse<null>> => {
+    if (!password || !email) {
+        return { message: 'Empty credentials', status: 400, isError: true, data: null };
     }
+
+    try {
+        const salt = await bcrypt.genSalt(3);
+        const password_hash = await bcrypt.hash(password, salt);
+
+        await this.repository.postRegister(email, password_hash);
+        return { message: 'Account registered successfully', status: 201, isError: false, data: null };
+    } catch (error: any) {
+        console.error("Error during registration:", error);
+        return { message: error.message || 'Error during registration attempt', status: 500, isError: true, data: null };
+    }
+};
     deleteContact = async (user_id: string, contact_email: string): Promise<ServiceResponse<null>> => {
         try {
             await this.repository.deleteContact(user_id, contact_email);
