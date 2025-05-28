@@ -41,7 +41,7 @@ const postLoginSchema = z.object({
 const postRegisterSchema = z.object({
   email: z.string().email(),
   password: z.string().nonempty(),
-  passwordConfirmation: z.string().nonempty(),
+  confirmPassword: z.string().nonempty(),
 });
 
 const deleteContactSchema = z.object({
@@ -128,7 +128,7 @@ export class Controller {
       const serviceResponse = await this.service.postRegister(
         req.body.email,
         req.body.password,
-        req.body.passwordConfirmation
+        req.body.confirmPassword
       );
 
       console.log(serviceResponse.message);

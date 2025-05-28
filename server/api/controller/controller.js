@@ -37,7 +37,7 @@ const postLoginSchema = z.object({
 const postRegisterSchema = z.object({
     email: z.string().email(),
     password: z.string().nonempty(),
-    passwordConfirmation: z.string().nonempty(),
+    confirmPassword: z.string().nonempty(),
 });
 const deleteContactSchema = z.object({
     contactEmail: z.string().email(),
@@ -90,7 +90,7 @@ export class Controller {
         this.postRegister = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 postRegisterSchema.parse(req.body); // Validate request body
-                const serviceResponse = yield this.service.postRegister(req.body.email, req.body.password, req.body.passwordConfirmation);
+                const serviceResponse = yield this.service.postRegister(req.body.email, req.body.password, req.body.confirmPassword);
                 console.log(serviceResponse.message);
                 return res.status(serviceResponse.status).json({ message: serviceResponse.message });
             }
