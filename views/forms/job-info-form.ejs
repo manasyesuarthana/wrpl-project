@@ -1,212 +1,232 @@
 <%- include("../partials/header.ejs") %>
-
 <div class="container">
+  
     <main>
-        <div class="py-5 text-center">
-            <div class="d-flex">
-                <div>
-                    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-3">
-                        ← Back
-                    </a>
+      <div class="py-5 text-center">
+        <div class="d-flex">
+          <div>
+            <a href="javascript:history.back()" class="btn btn-outline-secondary mb-3">
+            ← Back
+          </a>
+        </div> 
+      </div>
+        
+        <h2>Add Your Job Info Here</h2>
+        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+      </div>
+  
+      <div class="container">
+        <div class="col-12">
+          <h4 class="mb-3">Job Details</h4>
+          <form class="needs-validation" novalidate="" action="/submit-job" method="POST">
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="companyName" class="form-label">Company Name</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Company Name" required="">
+                  <div class="invalid-feedback">
+                    Company name is required.
+                  </div>
                 </div>
-            </div>
-            <h2>Add Your Job Info Here</h2>
-            <p class="lead">Fill out the details below to add a new job application to your JobTrek dashboard.</p>
-        </div>
-
-        <div class="container">
-            <div class="col-12">
-                <h4 class="mb-3">Job Details</h4>
-                <form class="needs-validation" id="addJobForm" novalidate>
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <label for="companyName" class="form-label">Company Name</label>
-                            <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Company Name" required>
-                            <div class="invalid-feedback">
-                                Company name is required.
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="appliedPosition" class="form-label">Applied Position</label>
-                            <input type="text" class="form-control" id="appliedPosition" name="appliedPosition" placeholder="Applied Position" required>
-                            <div class="invalid-feedback">
-                                Applied position is required.
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="companyAddress" class="form-label">Company Address <span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="companyAddress" name="companyAddress" placeholder="123 Main St, City">
-                        </div>
-
-                        <div class="col-12">
-                            <label for="dateApplied" class="form-label">Date of Application</label>
-                            <input type="date" class="form-control" id="dateApplied" name="dateApplied" required>
-                            <div class="invalid-feedback">
-                                Date of application is required.
-                            </div>
-                        </div>
-
-                        <div class="col-md-6"> <label for="country" class="form-label">Country</label>
-                            <select class="form-select" id="country" name="country" required>
-                                <option value="">Select a country...</option>
-                            </select>
-                            <div class="invalid-feedback">Please select a valid country.</div>
-                        </div>
-
-                        <div class="col-md-6"> <label for="status" class="form-label">Status</label>
-                            <select class="form-select" id="status" name="status" required>
-                                <option value="">Choose status...</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Status is required.
-                            </div>
-                        </div>
-                        
-                        <div class="col-12">
-                            <label for="companyWebsite" class="form-label">Company's Website / Application Portal <span class="text-muted">(Optional)</span></label>
-                            <input type="url" class="form-control" id="companyWebsite" name="companyWebsite" placeholder="https://www.company.com">
-                        </div>
-
-                        <div class="col-12 mt-3">
-                            <label for="additionalNotes" class="form-label">Additional Notes <span class="text-muted">(Optional)</span></label>
-                            <textarea class="form-control" id="additionalNotes" name="additionalNotes" placeholder="Enter any additional information..." rows="4"></textarea>
-                        </div>
+              </div>
+  
+              <div class="col-12">
+                <label for="appliedPosition" class="form-label">Applied Position</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="appliedPosition" name="appliedPosition" placeholder="Applied Position" required>
+                <div class="invalid-feedback">
+                    Applied position is required.
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-12">
+                <label for="companyAddress" class="form-label">Company Address <span>(Optional)</span></label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="companyAddress" name="companyAddress" placeholder="Address">
+                </div>
+              </div>
+  
+              <div class="col-12">
+                <label for="dateApplied" class="form-label">Date of Application</label>
+                <div class="input-group has-validation">
+                    <input type="date" class="form-control" id="dateApplied" name="dateApplied" required>
+                    <div class="invalid-feedback">
+                        Date of application is required.
                     </div>
+                </div>
+              </div>
+  
+              <div class="col-md-5">
+                <label for="country" class="form-label">Country</label>
+                <select class="form-select" name="country" required>
+                  <option value="">Select a country</option>
+                  <option value="0">Afghanistan</option>
+                  <option value="1">Albania</option>
+                  <option value="2">Algeria</option>
+                  <option value="3">Andorra</option>
+                  <option value="4">Angola</option>
+                  <option value="5">Antigua and Barbuda</option>
+                  <option value="6">Argentina</option>
+                  <option value="7">Armenia</option>
+                  <option value="8">Australia</option>
+                  <option value="9">Austria</option>
+                  <option value="10">Azerbaijan</option>
+                  <option value="11">Bahamas</option>
+                  <option value="12">Bahrain</option>
+                  <option value="13">Bangladesh</option>
+                  <option value="14">Barbados</option>
+                  <option value="15">Belarus</option>
+                  <option value="16">Belgium</option>
+                  <option value="17">Belize</option>
+                  <option value="18">Benin</option>
+                  <option value="19">Bhutan</option>
+                  <option value="20">Bolivia</option>
+                  <option value="21">Bosnia and Herzegovina</option>
+                  <option value="22">Botswana</option>
+                  <option value="23">Brazil</option>
+                  <option value="24">Brunei</option>
+                  <option value="25">Bulgaria</option>
+                  <option value="26">Burkina Faso</option>
+                  <option value="27">Burundi</option>
+                  <option value="28">Cabo Verde</option>
+                  <option value="29">Cambodia</option>
+                  <option value="30">Cameroon</option>
+                  <option value="31">Canada</option>
+                  <option value="32">Central African Republic</option>
+                  <option value="33">Chad</option>
+                  <option value="34">Chile</option>
+                  <option value="35">China</option>
+                  <option value="36">Colombia</option>
+                  <option value="37">Comoros</option>
+                  <option value="38">Congo (Congo-Brazzaville)</option>
+                  <option value="39">Costa Rica</option>
+                  <option value="40">Croatia</option>
+                  <option value="41">Cuba</option>
+                  <option value="42">Cyprus</option>
+                  <option value="43">Czech Republic</option>
+                  <option value="44">Denmark</option>
+                  <option value="45">Djibouti</option>
+                  <option value="46">Dominica</option>
+                  <option value="47">Dominican Republic</option>
+                  <option value="48">Ecuador</option>
+                  <option value="49">Egypt</option>
+                  <option value="50">El Salvador</option>
+                  <option value="51">Equatorial Guinea</option>
+                  <option value="52">Eritrea</option>
+                  <option value="53">Estonia</option>
+                  <option value="54">Eswatini</option>
+                  <option value="55">Ethiopia</option>
+                  <option value="56">Fiji</option>
+                  <option value="57">Finland</option>
+                  <option value="58">France</option>
+                  <option value="59">Gabon</option>
+                  <option value="60">Gambia</option>
+                  <option value="61">Georgia</option>
+                  <option value="62">Germany</option>
+                  <option value="63">Ghana</option>
+                  <option value="64">Greece</option>
+                  <option value="65">Grenada</option>
+                  <option value="66">Guatemala</option>
+                  <option value="67">Guinea</option>
+                  <option value="68">Guinea-Bissau</option>
+                  <option value="69">Guyana</option>
+                  <option value="70">Haiti</option>
+                  <option value="71">Honduras</option>
+                  <option value="72">Hungary</option>
+                  <option value="73">Iceland</option>
+                  <option value="74">India</option>
+                  <option value="75">Indonesia</option>
+                  <option value="76">Iran</option>
+                  <option value="77">Iraq</option>
+                  <option value="78">Ireland</option>
+                  <option value="79">Israel</option>
+                  <option value="80">Italy</option>
+                  <option value="81">Jamaica</option>
+                  <option value="82">Japan</option>
+                  <option value="83">Jordan</option>
+                  <option value="84">Kazakhstan</option>
+                  <option value="85">Kenya</option>
+                  <option value="86">Kiribati</option>
+                  <option value="87">Kuwait</option>
+                  <option value="88">Kyrgyzstan</option>
+                  <option value="89">Laos</option>
+                  <option value="90">Latvia</option>
+                  <option value="91">Lebanon</option>
+                  <option value="92">Lesotho</option>
+                  <option value="93">Liberia</option>
+                  <option value="94">Libya</option>
+                  <option value="95">Liechtenstein</option>
+                  <option value="96">Lithuania</option>
+                  <option value="97">Luxembourg</option>
+                  <option value="98">Madagascar</option>
+                  <option value="99">Malawi</option>
+                  <option value="100">Malaysia</option>
+                  <option value="101">Maldives</option>
+                  <option value="102">Mali</option>
+                  <option value="103">Malta</option>
+                  <option value="104">Marshall Islands</option>
+                  <option value="105">Mauritania</option>
+                  <option value="106">Mauritius</option>
+                  <option value="107">Mexico</option>
+                  <option value="108">Micronesia</option>
+                  <option value="109">Moldova</option>
+                  <option value="110">Monaco</option>
+                  <option value="111">Mongolia</option>
+                  <option value="112">Montenegro</option>
+                  <option value="113">Morocco</option>
+                  <option value="114">Mozambique</option>
+                  <option value="115">Myanmar</option>
+                  <option value="116">Namibia</option>
+                  <option value="117">Nauru</option>
+                  <option value="118">Nepal</option>
+                  <option value="119">Netherlands</option>
+                  <option value="120">New Zealand</option>
+                  <option value="121">Nigeria</option>
+                  <option value="122">North Korea</option>
+                  <option value="123">Norway</option>
+                  <option value="124">United Kingdom</option>
+                  <option value="125">United States</option>
+                  <option value="126">Venezuela</option>
+                  <option value="127">Vietnam</option>
+                  <option value="128">Yemen</option>
+                  <option value="129">Zambia</option>
+                  <option value="130">Zimbabwe</option>              </select>
+                <div class="invalid-feedback">Please select a valid country.</div>
+              </div>
+            
+  
+              <div class="col-12">
+                <label for="companyWebsite" class="form-label">Company's Website OR Application Portal<span>(Optional)</span></label>
+                <input type="text" class="form-control" id="companyWebsite" name="companyWebsite" placeholder="www.company.com">
+              </div>
+            
 
-                    <hr class="my-4">
-                    
-                    <div id="formMessageArea" class="mb-3"></div> <button class="w-100 btn btn-primary btn-lg mt-3 mb-5" type="submit">Add Job Application</button>
-                </form>
+            <div class="col-md-5 mt-3">
+              <label for="status" class="form-label">Status</label>
+              <select class="form-select" id="status" name="status" required>
+                  <option value="">Choose...</option>
+                  <option value="0">Have not applied</option>
+                  <option value="1">Application sent</option>
+                  <option value="2">On progress</option>
+                  <option value="3">Interview invitation</option>
+                  <option value="4">Accepted</option>
+                  <option value="5">Rejected</option>
+                  <option value="6">Needs follow-up</option>
+              </select>
+              <div class="invalid-feedback">
+                  Status is required.
+              </div>
             </div>
+
+            <div class="mt-4 col-12">
+              <label for="additionalNotes" class="form-label">Additional Notes <span>(Optional)</span></label>
+              <textarea class="form-control" id="additionalNotes" name="additionalNotes" placeholder="Enter any additional information..." rows="5"></textarea>
+            </div>                         
+            <button class="w-100 btn btn-primary btn-lg mt-5 mb-5" type="submit">Add Job</button>
+          </form>
         </div>
+      </div>
     </main>
-</div>
 
 <%- include("../partials/footer.ejs") %>
-
-<script>
-    // Bootstrap form validation
-    (() => {
-        'use strict'
-        const forms = document.querySelectorAll('.needs-validation')
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-                form.classList.add('was-validated')
-            }, false)
-        })
-    })();
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const addJobForm = document.getElementById('addJobForm');
-        const countrySelect = document.getElementById('country');
-        const statusSelect = document.getElementById('status');
-        const messageArea = document.getElementById('formMessageArea');
-
-        // Populate Country Dropdown
-        const countries = <%- JSON.stringify(typeof countries !== 'undefined' ? countries : []) %>;
-        if (countries && countrySelect) {
-            countries.forEach(country => {
-                const option = document.createElement('option');
-                option.value = country.country_id;
-                option.textContent = country.country_name;
-                countrySelect.appendChild(option);
-            });
-        }
-
-        // Populate Status Dropdown
-        const applicationStatuses = <%- JSON.stringify(typeof statuses !== 'undefined' ? statuses : []) %>;
-        if (applicationStatuses && statusSelect) {
-            applicationStatuses.forEach((statusName, index) => {
-                const option = document.createElement('option');
-                option.value = index; 
-                option.textContent = statusName;
-                statusSelect.appendChild(option);
-            });
-        }
-
-        if (addJobForm) {
-            addJobForm.addEventListener('submit', async (event) => {
-                event.preventDefault(); 
-                addJobForm.classList.add('was-validated');
-
-                if (!addJobForm.checkValidity()) {
-                    messageArea.innerHTML = '<div class="alert alert-danger" role="alert">Please fill in all required fields correctly.</div>';
-                    // Do not remove 'was-validated' here, let user see errors
-                    return;
-                }
-                
-                messageArea.innerHTML = '<div class="alert alert-info" role="alert">Submitting job application...</div>';
-
-                const formDataPayload = {
-                    companyName: document.getElementById('companyName').value,
-                    appliedPosition: document.getElementById('appliedPosition').value,
-                    companyAddress: document.getElementById('companyAddress').value || null,
-                    dateApplied: document.getElementById('dateApplied').value,
-                    country: parseInt(countrySelect.value),
-                    companyWebsite: document.getElementById('companyWebsite').value || null,
-                    status: parseInt(statusSelect.value),
-                    additional_notes: document.getElementById('additionalNotes').value || null
-                };
-
-                try {
-                    const response = await fetch('/api/v1/jobs', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formDataPayload)
-                    });
-
-                    // If response.redirected is true, the browser has already started navigating
-                    // or will navigate. The 'response' object is for the *final* destination.
-                    // We only need to act if the final response was not 'ok' (e.g., if '/' page itself had an error after redirect)
-                    // or if the original API call returned an error without redirecting.
-
-                    if (response.ok && response.redirected) {
-                        // Successful submission and redirect was followed by the browser.
-                        // The browser is navigating to '/'. No further client-side action on this page
-                        // is typically needed for the success message or form reset, as this page will be replaced.
-                        // The "Submitting job application..." message will disappear with the page navigation.
-                        console.log('Job submitted, server redirected, browser is navigating.');
-                        return; // Allow browser to complete navigation
-                    }
-                    
-                    if (!response.ok) {
-                        // This handles two cases:
-                        // 1. API directly returned an error (e.g., 400, 500 from /api/v1/jobs) - response.redirected will be false.
-                        // 2. API redirected, but the target page ('/') resulted in an error - response.redirected will be true.
-                        let errorData = { message: `Request failed with status: ${response.status}` };
-                        if (response.headers.get("content-type")?.includes("application/json")) {
-                            try {
-                                errorData = await response.json();
-                            } catch (e) {
-                                console.warn("Could not parse error JSON from response:", e);
-                            }
-                        }
-                        messageArea.innerHTML = `<div class="alert alert-danger" role="alert">${errorData.message || 'Submission failed.'}</div>`;
-                        addJobForm.classList.remove('was-validated'); // Allow user to correct and retry
-                    } else if (response.ok && !response.redirected) {
-                        // This case: API call was successful (e.g. 200 or 201) but DID NOT redirect.
-                        // This shouldn't happen with your current backend setup for POST /api/v1/jobs on success.
-                        // If it did, you'd handle the success JSON here.
-                        console.log("Job submitted successfully, but server did not redirect. Response:", await response.text());
-                        messageArea.innerHTML = `<div class="alert alert-success" role="alert">Job submitted (but no redirect occurred).</div>`;
-                        addJobForm.reset();
-                        addJobForm.classList.remove('was-validated');
-                    }
-
-                } catch (error) {
-                    // This catches network errors (e.g., server down, CORS if it were an issue)
-                    // or JavaScript errors within the try block (e.g., if response.json() failed unexpectedly).
-                    console.error('Submit job fetch/processing error:', error);
-                    messageArea.innerHTML = '<div class="alert alert-danger" role="alert">An unexpected error occurred. Please check your connection and try again.</div>';
-                    addJobForm.classList.remove('was-validated');
-                }
-            });
-        }
-    });
-</script>
