@@ -1,14 +1,21 @@
 import { NeonQueryFunction } from "@neondatabase/serverless";
 import { NeonHttpDatabase } from "drizzle-orm/neon-http";
-import {usersTable, jobsTable, countryIdsTable, recruiterContactsTable, applicationStatusEnum} from '../../db/schema.js'
+import {usersTable, jobsTable, countryIdsTable, recruiterContactsTable, applicationStatusEnum, ReminderTable} from '../../db/schema.js'
 import { NeonDbError } from "@neondatabase/serverless";
 import { and, eq } from "drizzle-orm";
 
 export type DbType = NeonHttpDatabase<Record<string, never>> & {
     $client: NeonQueryFunction<false, false>;
 }
-export class Repository{
-    db:DbType;
+
+export enum Priority {
+    LOW = 'low',
+    MEDIUM = 'medium',
+    HIGH = 'high'
+}
+
+export class Repository {
+    db: DbType;
     constructor(db:DbType){
         this.db=db;
     }
@@ -189,6 +196,109 @@ export class Repository{
         } catch(error){
             console.log(error);
             throw new Error("An error occured during database call.");
+        }
+    }
+    // Add this to your Repository class in server/api/repository/repository.ts
+
+    getJobDetails = async (
+        user_id: string,
+        company_name: string,
+        applied_position: string,
+        date_applied: string
+    ): Promise<any | null> => { // Define a more specific type if you have one for a single job
+        try {
+            const jobDetails = await this.db
+                .select({
+                    companyName: jobsTable.company_name,
+                    appliedPosition: jobsTable.applied_position,
+                    companyAddress: jobsTable.company_address,
+                    dateApplied: jobsTable.date_applied,
+                    countryId: jobsTable.country_id,
+                    countryName: countryIdsTable.country_name, // Fetched from join
+                    companyWebsite: jobsTable.company_website,
+                    statusId: jobsTable.status_id,
+                    additionalNotes: jobsTable.additional_notes,
+                    createdAt: jobsTable.created_at,
+                    updatedAt: jobsTable.updated_at
+                })
+                .from(jobsTable)
+                .leftJoin(countryIdsTable, eq(jobsTable.country_id, countryIdsTable.country_id))
+                .where(
+                    and(
+                        eq(jobsTable.user_id, user_id),
+                        eq(jobsTable.company_name, company_name),
+                        eq(jobsTable.applied_position, applied_position),
+                        eq(jobsTable.date_applied, date_applied)
+                    )
+                )
+                .limit(1); // Ensures only one record is returned
+
+            if (jobDetails.length > 0) {
+                return jobDetails[0];
+            }
+            return null; // Or throw an error if job not found
+        } catch (error) {
+            console.error("Error fetching job details from repository:", error);
+            throw new Error("An error occurred during database call for job details.");
+        }
+    }
+    postReminder = async (        
+        userId:string, 
+        title:string,
+        date: string,
+        time: string, 
+        notes: string, 
+        priority: Priority): Promise<void> => {
+        try {
+            await this.db
+                .insert(ReminderTable)
+                .values({
+                    user_id: userId,
+                    title: title,
+                    date: date,
+                    time: time,
+                    notes: notes,
+                    priority: priority,
+                });
+        } catch (error) {
+            console.log(error);
+            throw new Error("An error occurred during database call for posting reminder.");
+        }
+       
+    }
+    getReminders = async (userId: string): Promise<Array<any>> => {
+        try {
+            const reminders = await this.db
+                .select({
+                    reminderId: ReminderTable.reminder_id,
+                    title: ReminderTable.title,
+                    date: ReminderTable.date,
+                    time: ReminderTable.time,
+                    notes: ReminderTable.notes,
+                    priority: ReminderTable.priority,
+                    createdAt: ReminderTable.created_at,
+                })
+                .from(ReminderTable)
+                .where(eq(ReminderTable.user_id, userId));
+            return reminders;
+        } catch (error) {
+            console.log(error);
+            throw new Error("An error occurred during database call for fetching reminders.");
+        }
+    }
+    deleteReminder = async (userId: string, reminderId: string): Promise<void> => {
+        try{
+            await this.db
+                .delete(ReminderTable)
+                .where(
+                    and(
+                        eq(ReminderTable.user_id, userId),
+                        eq(ReminderTable.reminder_id, reminderId)
+                    )
+                );
+        } catch (error) {
+            console.log(error);
+            throw new Error("An error occurred during database call for deleting reminder.");
         }
     }
 };
