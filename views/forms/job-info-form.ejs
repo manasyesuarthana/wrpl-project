@@ -112,17 +112,13 @@
 <%- include("../partials/footer.ejs") %>
 
 <script>
-    // Standard Bootstrap form validation script (optional if you rely on server-side or built-in browser validation)
-    // This script enables Bootstrap's custom styling for validation states.
     (() => {
         'use strict'
         const forms = document.querySelectorAll('.needs-validation')
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', event => {
-                // We are letting the server handle validation primarily with direct POST
-                // but Bootstrap styling can still be triggered if form.checkValidity() is false
                 if (!form.checkValidity()) {
-                    // event.preventDefault() // Don't prevent default if you want it to submit for server-side handling
+                    // event.preventDefault() // Don't prevent default if we want it to submit for server-side handling
                     // event.stopPropagation()
                 }
                 form.classList.add('was-validated')
@@ -135,7 +131,6 @@
         const statusSelect = document.getElementById('status');
 
         // --- Populate Country Dropdown ---
-        // 'countries' is passed from the server via res.render() in router.js
         const countriesData = <%- JSON.stringify(typeof countries !== 'undefined' ? countries : []) %>;
         const selectedCountry = "<%- typeof formData !== 'undefined' ? formData.country : '' %>";
 
@@ -152,7 +147,6 @@
         }
 
         // --- Populate Status Dropdown ---
-        // 'statuses' is passed from the server (enum array)
         const applicationStatusesData = <%- JSON.stringify(typeof statuses !== 'undefined' ? statuses : []) %>;
         const selectedStatus = "<%- typeof formData !== 'undefined' ? formData.status : '' %>";
 
@@ -167,8 +161,5 @@
                 statusSelect.appendChild(option);
             });
         }
-
-        // No fetch-based submission logic needed here anymore for this approach
-        // The form will submit via its action and method attributes.
     });
 </script>

@@ -1,14 +1,11 @@
-// server/api/controller/controller.ts
-
 import { Service, ServiceResponse, UserDetails } from '../service/service.js';
 import { DbType, Priority } from "../repository/repository.js";
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
 import 'express-session';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-// Corrected: Ensure these imports are at the top level
-import { applicationStatusEnum } from '../../db/schema.js'; //
-import { countryIds } from '../../db/country_id_seed.js'; //
+//import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { applicationStatusEnum } from '../../db/schema.js';
+import { countryIds } from '../../db/country_id_seed.js';
 import { date } from 'drizzle-orm/pg-core/index.js';
 
 declare module 'express-session' {
@@ -111,15 +108,11 @@ export class Controller {
       if (!serviceResponse.isError && serviceResponse.data) {
         req.session.user_id = serviceResponse.data.user_id;
         console.log(`Login successful for ${req.body.email}, redirecting to /`);
-        // For client-side handling that expects JSON, you might prefer:
-        // res.status(200).json({ success: true, message: "Login successful", redirectUrl: "/" });
-        res.redirect('/'); // Current behavior
+        res.redirect('/'); 
         return;
       }
       console.log(`Login failed: ${serviceResponse.message}`);
-      // For client-side handling, you might prefer:
-      // res.status(serviceResponse.status || 400).json({ success: false, message: serviceResponse.message });
-      res.redirect(`/login?error=${encodeURIComponent(serviceResponse.message)}`); // Current behavior
+      res.redirect(`/login?error=${encodeURIComponent(serviceResponse.message)}`);
     } catch (error: any) {
       const errorMessage = error instanceof z.ZodError ? error.flatten().fieldErrors : { form: error.message };
       console.log(`Login validation/controller error:`, errorMessage);
@@ -128,13 +121,11 @@ export class Controller {
           const fieldErrors = Object.values(error.flatten().fieldErrors).flat().join(' ');
           if (fieldErrors) errorMsgForQuery = fieldErrors;
       }
-      // For client-side handling, you might prefer:
-      // res.status(400).json({ success: false, message: errorMsgForQuery, details: errorMessage });
-      res.redirect(`/login?error=${encodeURIComponent(errorMsgForQuery)}`); // Current behavior
+      res.redirect(`/login?error=${encodeURIComponent(errorMsgForQuery)}`);
     }
   };
 
-  postRegister = async (req: Request, res: Response, next: NextFunction): Promise<void> => { //
+  postRegister = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const validationResult = postRegisterSchema.parse(req.body);
 
@@ -146,14 +137,10 @@ export class Controller {
 
       if (!serviceResponse.isError) {
         console.log(`Registration successful for ${validationResult.email}, redirecting to /login`);
-        // For client-side handling:
-        // res.status(201).json({ success: true, message: "Registration successful. Please login.", redirectUrl: "/login" });
-        res.redirect('/login?message=Registration successful. Please login.'); // Current behavior
+        res.redirect('/login?message=Registration successful. Please login.');
         return;
       }
       console.log(`Registration failed: ${serviceResponse.message}`);
-      // For client-side handling:
-      // res.status(serviceResponse.status || 400).json({ success: false, message: serviceResponse.message });
       res.redirect(`/register?error=${encodeURIComponent(serviceResponse.message)}`); // Current behavior
     } catch (error: any) {
       const errorMessage = error instanceof z.ZodError ? error.flatten().fieldErrors : { form: error.message };
@@ -177,10 +164,6 @@ export class Controller {
       if (!validationResult.success) {
         const errors = validationResult.error.flatten().fieldErrors;
         console.error("Job submission Zod validation failed:", errors);
-        // If the form is submitted via client-side JS expecting JSON:
-        // return res.status(400).json({ message: "Validation failed. Please check your input.", errors: errors, formData: req.body });
-        
-        // Current behavior (renders page - assumes traditional form post or client-side handling of HTML response for errors)
         res.status(400).render("forms/job-info-form", {
             title: "Add New Job Application - Error",
             countries: countryIds,
@@ -231,14 +214,8 @@ export class Controller {
     } catch (error:any) {
       console.error(`Unexpected error in postSubmitJob:`, error);
       if (error instanceof z.ZodError && error.issues.some(issue => issue.path.includes('user_id'))) {
-        // If client-side JS expects JSON:
-        // return res.status(401).json({ message: "Unauthorized. Please login." });
-        res.status(401).render("error", { message: "Unauthorized. Please login." }); // Current behavior
+        res.status(401).render("error", { message: "Unauthorized. Please login." }); 
       } else {
-        // If client-side JS expects JSON:
-        // return res.status(500).json({ message: "An unexpected error occurred.", errors: { form: "An unexpected error occurred." }, formData: req.body });
-        
-        // Current behavior (renders page)
         res.status(500).render("forms/job-info-form", {
             title: "Add New Job Application - Error",
             countries: countryIds,

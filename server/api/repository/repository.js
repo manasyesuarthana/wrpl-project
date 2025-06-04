@@ -94,7 +94,7 @@ export class Repository {
                     companyAddress: jobsTable.company_address,
                     dateApplied: jobsTable.date_applied,
                     countryId: jobsTable.country_id,
-                    countryName: countryIdsTable.country_name,
+                    countryName: countryIdsTable.country_name, // Fetched from join
                     companyWebsite: jobsTable.company_website,
                     statusId: jobsTable.status_id,
                     additionalNotes: jobsTable.additional_notes,
