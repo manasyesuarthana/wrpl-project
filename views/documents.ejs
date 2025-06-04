@@ -279,7 +279,6 @@ const currentDocuments = filteredDocuments.slice(startIndex, endIndex);
     document.addEventListener('DOMContentLoaded', () => {
         const deleteDocumentModalElement = document.getElementById('deleteDocumentModal');
         const confirmDeleteDocumentButton = document.getElementById('confirmDeleteDocumentButton');
-        // ADDED: Sign Out Button from this page's modal
         const confirmSignOutBtnDocPage = document.getElementById('confirmSignOutButtonDocPage');
 
         if (deleteDocumentModalElement) {
@@ -295,7 +294,6 @@ const currentDocuments = filteredDocuments.slice(startIndex, endIndex);
                 }
             });
 
-            // ADDED: Fix for backdrop not disappearing after document deletion
             deleteDocumentModalElement.addEventListener('hidden.bs.modal', function () {
                 const backdrops = document.querySelectorAll('.modal-backdrop');
                 backdrops.forEach(backdrop => backdrop.remove());
@@ -309,7 +307,6 @@ const currentDocuments = filteredDocuments.slice(startIndex, endIndex);
             confirmDeleteDocumentButton.addEventListener('click', performSimpleDocumentDelete);
         }
 
-        // ADDED: Sign Out Logic
         if (confirmSignOutBtnDocPage) {
             confirmSignOutBtnDocPage.addEventListener('click', async () => {
                 try {
@@ -318,7 +315,7 @@ const currentDocuments = filteredDocuments.slice(startIndex, endIndex);
                         headers: { 'Content-Type': 'application/json' }
                     });
                     const result = await response.json(); 
-                    if (response.ok && result.success) { // Check for result.success from controller
+                    if (response.ok && result.success) {
                         window.location.href = '/login';
                     } else {
                         alert('Logout failed: ' + (result.message || 'Server error')); 
@@ -332,7 +329,6 @@ const currentDocuments = filteredDocuments.slice(startIndex, endIndex);
     });
 
     function performSimpleDocumentDelete() {
-        // ... (Your existing temporary delete logic) ...
         if (!documentIdToDelete) {
             console.warn("Document ID to delete is not set.");
             return;
@@ -354,7 +350,6 @@ const currentDocuments = filteredDocuments.slice(startIndex, endIndex);
     }
 
     function renderSimpleDocumentTable(docs) {
-        // ... (Your existing temporary render logic) ...
         const tbody = document.querySelector(".table-responsive table tbody");
         if (!tbody) {
             console.error("Document table tbody not found! Cannot re-render.");

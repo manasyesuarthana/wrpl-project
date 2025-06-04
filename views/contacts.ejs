@@ -13,7 +13,7 @@
     <style>
         body {}
         .main-content-area { flex-grow: 1; padding: 20px; }
-        .contact-card { /* specific styling */ }
+        .contact-card { /* specific styling if needed */ }
         .alert-info { background-color: #0dcaf0; border-color: #0dcaf0; color: #000; }
         .alert-success { background-color: #198754; border-color: #198754; color: #fff; }
         .alert-danger { background-color: #dc3545; border-color: #dc3545; color: #fff; }
@@ -110,7 +110,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Sign Out Logic (from index.ejs, ID slightly adapted for this page if needed) ---
             const confirmSignOutBtnContacts = document.getElementById('confirmSignOutButtonContacts');
             if (confirmSignOutBtnContacts) {
                 confirmSignOutBtnContacts.addEventListener('click', async () => {
@@ -149,7 +148,6 @@
             }
             
             async function fetchAndRenderContacts() {
-                // ... (same as my previous detailed suggestion for fetchAndRenderContacts)
                 if (!contactsContainer) return;
                 displayGlobalMessage("Loading contacts...", "info");
                 contactsContainer.innerHTML = ''; 
@@ -187,7 +185,6 @@
             }
 
             function renderContactsUI(contactsToRender) {
-                // ... (same as my previous detailed suggestion for renderContactsUI)
                 if (!contactsContainer) return;
                 contactsContainer.innerHTML = ''; 
                 
@@ -229,7 +226,6 @@
             }
 
             function filterAndRenderContactsUIFromSearch(searchTerm) {
-                // ... (same as my previous detailed suggestion for filterAndRenderContactsUIFromSearch)
                 const lowerSearchTerm = searchTerm.toLowerCase().trim();
                 if (!lowerSearchTerm) {
                     renderContactsUI(currentFetchedContacts);
@@ -251,7 +247,6 @@
                 });
             }
             
-            // Delete Modal Logic (from your previous contacts.ejs)
             if (deleteContactModalElement) {
                 deleteContactModalElement.addEventListener('show.bs.modal', function (event) {
                     const button = event.relatedTarget;
@@ -276,7 +271,6 @@
 
             if (confirmDeleteContactButton) {
                 confirmDeleteContactButton.addEventListener('click', async () => {
-                    // ... (same as your existing delete logic in contacts.ejs, ensuring it calls displayGlobalMessage and fetchAndRenderContacts)
                     if (!contactEmailToDelete) return;
                     displayGlobalMessage("Deleting contact...", "info");
                     try {

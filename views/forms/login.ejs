@@ -47,13 +47,11 @@
 </div>
 
 <script>
-    // Client-side form validation
     (function() {
         'use strict';
         
         const form = document.getElementById('loginForm');
         
-        // Validate on submit
         form.addEventListener('submit', function(event) {
             if (!form.checkValidity()) {
                 event.preventDefault();
@@ -62,7 +60,6 @@
             form.classList.add('was-validated');
         }, false);
         
-        // Add real-time validation as user types
         const fields = form.querySelectorAll('input[required]');
         fields.forEach(field => {
             field.addEventListener('input', () => {
@@ -80,8 +77,7 @@
                 }
             });
         });
-        
-        // Special validation for email field
+
         const emailField = document.getElementById('email');
         emailField.addEventListener('input', () => {
             const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
@@ -92,7 +88,6 @@
             }
         });
         
-        // Special validation for password field
         const passwordField = document.getElementById('password');
         passwordField.addEventListener('input', () => {
             if (passwordField.value.length < 6) {

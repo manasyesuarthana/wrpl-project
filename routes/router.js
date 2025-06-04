@@ -1,18 +1,16 @@
 import express from "express";
 import { countryIds } from '../server/db/country_id_seed.js';
 import { applicationStatusEnum } from '../server/db/schema.js';
-// You'll need to import your controller to use controller.postSubmitJob
-// Assuming controller.js is the compiled output if controller.ts is the source
-import { Controller } from '../server/api/controller/controller.js'; // Adjust path as necessary
+import { Controller } from '../server/api/controller/controller.js';
 import { neon } from "@neondatabase/serverless"; // For DB connection if controller needs it passed
-import { drizzle } from "drizzle-orm/neon-http"; // For DB connection if controller needs it passed
+import { drizzle } from "drizzle-orm/neon-http";
 import 'dotenv/config';
 
 
 const router = express.Router();
 
 // --- Initialize Controller (needs db instance) ---
-// This setup assumes DATABASE_URL is in .env
+// Database URL must be in .env
 let controller;
 if (process.env.DATABASE_URL) {
     const sql = neon(process.env.DATABASE_URL);
@@ -20,7 +18,6 @@ if (process.env.DATABASE_URL) {
     controller = new Controller(db);
 } else {
     console.error("DATABASE_URL not set, controller cannot be initialized for POST route.");
-    // Handle this error appropriately, maybe by not defining POST routes or throwing
 }
 
 
@@ -60,8 +57,7 @@ router.post("/submit-job-application", isAuthenticated, (req, res, next) => {
     if (!controller) {
         return next(new Error("Controller not initialized for job submission."));
     }
-    // The controller.postSubmitJob will handle success (redirect) or error (re-render)
-    controller.postSubmitJob(req, res, next); // Pass next for error handling if controller calls it
+    controller.postSubmitJob(req, res, next);
 });
 
 
@@ -93,7 +89,6 @@ router.get("/viewJobDetail", isAuthenticated, controller.renderJobDetailPage);
 router.get("/contacts", isAuthenticated, (req, res) => {
   res.render("contacts", { 
     title: "My Contacts" 
-    // Contact data will be fetched client-side
   });
 });
 
@@ -101,12 +96,10 @@ router.get("/contacts", isAuthenticated, (req, res) => {
 router.get("/contact-page", isAuthenticated, (req, res) => {
   res.render("forms/contact-form", {
     title: "Add New Contact",
-    formData: {}, // For initial render if you plan to reuse for editing
-    errors: {}    // For initial render
+    formData: {}, 
+    errors: {}
   });
 });
 
-// Your API routes (POST /api/v1/contacts, GET /api/v1/contacts, DELETE /api/v1/contacts)
-// are handled in server.js via the controller.
 router.get("/viewJobDetail", isAuthenticated, controller.renderJobDetailPage);
 export default router;

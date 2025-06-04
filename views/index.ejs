@@ -13,7 +13,7 @@
     <style>
         /* Minor adjustments if needed */
         body {
-            /* Ensure dark background is applied if not in main.css or if overrides are needed */
+            /* make sure  dark background is applied if not in main.css or if overrides are needed */
             /* background-color: #212529; */ 
         }
         .main-content-area {
@@ -21,7 +21,6 @@
             padding: 20px;
             /* overflow-y: auto; /* Consider if content might exceed viewport height */
         }
-        /* Ensure alert messages are visible on dark background */
         .alert-info { background-color: #0dcaf0; border-color: #0dcaf0; color: #000; }
         .alert-success { background-color: #198754; border-color: #198754; color: #fff; }
         .alert-danger { background-color: #dc3545; border-color: #dc3545; color: #fff; }
@@ -244,7 +243,6 @@
                     }
                 });
 
-                // Listener for AFTER the modal has been hidden (more robust for cleanup)
                 deleteApplicationModalElement.addEventListener('hidden.bs.modal', function () {
                     const backdrops = document.querySelectorAll('.modal-backdrop');
                     backdrops.forEach(backdrop => backdrop.remove());
@@ -277,9 +275,6 @@
                         const modalInstance = bootstrap.Modal.getInstance(deleteApplicationModalElement);
                         if (modalInstance) {
                             modalInstance.hide(); 
-                            // The 'hidden.bs.modal' event listener should now handle the backdrop removal.
-                            // If direct removal in finally is still preferred, it can be added back here,
-                            // but using the event is cleaner.
                         }
                         jobToDeleteDetails = null;
                     }
